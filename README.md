@@ -10,6 +10,7 @@ Sequence build automation.
     + *Prototyping* - When working on the initial static build, cycle will serve up html files on a local webserver.
     + *Livereload* - All asset files, including static html, is watched for changes and will instantly update in the browser.
     + *Bower* - Any bower components installed are automatically found and merged into vendor.css and vendor.js files for easy addition. Bower is also watched so that installing any additional components will also update the browser.
+    + *Extensible* - Any other automation features are easily added without intefering with existing features, or breaking backwards-compatibility with older cycle projects.
 
 + **Configuration**
     + *Highly configurable* - Cycle is designed to be able to adapt to any project through it's configuration. All automation features are configurable, and other options for this are easily added.
