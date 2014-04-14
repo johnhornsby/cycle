@@ -18,7 +18,7 @@ Sequence build automation.
     + *Extensive error checking* - The configuration is parsed and checked extensively, giving a verbose error if anything is misconfigured.
 
 + **Setup**
-    + *Easy* - Cycle is configured as a global module, and only needs to be installed once on a machine.
+    + *Easy* - Cycle is configured as a global module and only needs to be installed once on a machine.
     + *Maintainable* - Having cycle as a global app means easy updates and no disparity between versions.
     + *Scaffold* - Cycle can generate a simple boilerplate file structure for easily starting new projects.
     + *Notifications* - If you are on a mac, or have growl installed on windows, cycle gives popup notifications informing you of errors or successful builds.
