@@ -36,6 +36,7 @@
     "grunt-notify": "^0.2.20",
     "colors": "^0.6.2",
     "ncp": "^0.5.0",
-    "grunt-bower": "git://github.com/aaerox/grunt-bower.git"
+    "grunt-bower": "git://github.com/aaerox/grunt-bower.git",
+    "grunt-consolidate": "^0.1.0"
   }
 }

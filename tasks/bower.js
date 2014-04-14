@@ -131,7 +131,7 @@ function isBowerLaunch(grunt) {
 		if (taskName === "task-bower")
 			bowerLaunch = true;
 
-		if (idx > 2 && taskName[0] !== '-')
+		if (idx > 1 && taskName[0] !== '-')
 			taskArg = true;
 	});
 

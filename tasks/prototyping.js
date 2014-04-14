@@ -1,3 +1,14 @@
+// The descriptor object for the template engine we're using
+var templateEngine = null;
+
+var templateEngines = {
+	'haml': {
+		name: 'haml',
+		templateString: "*.haml"
+	}
+};
+
+
 // This file is used to set up local HTML file prototyping.
 module.exports = function(grunt) {
 
@@ -15,21 +26,57 @@ module.exports = function(grunt) {
 	// Load our required npm tasks
 	grunt.task.loadNpmTasks('grunt-contrib-connect');
 
-	// Set up task
-	var connect = require('connect');
+	if (templateEngine != undefined) {
+		grunt.task.loadNpmTasks('grunt-consolidate');
+		
+		// Preprocess templates
+		grunt.config('consolidate', {
+			options: {
+				engine: templateEngine.name
+			},
+			dist: {
+				files: [{
+					expand: true,
+					cwd: '',
+					src: templateEngine.templateString,
+					dest: '.tmp/html/',
+					ext: '.html',
 
-	grunt.registerTask('task-prototype', 'Launches concurrent prototype server.', function () {
-		loadExpress(grunt);
-		grunt.task.run('notify:prototyping');
-	});
+					// Ignore partials prefixed with "_"
+					filter: function(srcFile) {
+			        	return !/\/_/.test(srcFile);
+			        }
+				}]
+			}
+		});
+
+		// Keep an eye on our template files
+		grunt.config('watch.prototypinghtml', {
+			files: [templateEngine.templateString],
+			tasks: ['notify:watch'],
+			options: {
+				livereload: true
+			}
+		});
+	}
 
 	// Keep an eye on our html files
 	grunt.config('watch.prototyping', {
-		files: ['*.html'],
+		files: ['./*.html'],
 		tasks: ['notify:watch'],
 		options: {
 			livereload: true
 		}
+	});
+
+	// Set up task
+	var connect = require('connect');
+
+	grunt.registerTask('task-prototype', 'Launches concurrent prototype server.', function () {
+		grunt.task.run('consolidate:dist');
+
+		loadExpress(grunt);
+		grunt.task.run('notify:prototyping');
 	});
 
 	// Add our task to the build list
@@ -62,6 +109,11 @@ function loadExpress(grunt) {
 		}));
 	}
 
+	// Load templated html
+	if (templateEngine != undefined) {
+		app.use(express["static"](require('path').join(process.cwd(), '.tmp/html/')));
+	}
+
 	// Load static content before routing takes place
 	app.use(express["static"](require('path').join(process.cwd(), grunt.config('config.prototypes.root'))));
 
@@ -69,7 +121,6 @@ function loadExpress(grunt) {
 	var port = grunt.config('config.prototypes.port') || 3000;
 	app.listen(port);
 }
-
 
 function verifyConfig(grunt) {
 	var fs = require('fs');
@@ -87,7 +138,21 @@ function verifyConfig(grunt) {
 
 		'prototypes.livereload': [ ['type:boolean'],
 			"Invalid 'prototypes.livereload' option given. Please give a boolean or disable prototyping." ],
+
+		'prototypes.templates': [ [ 'type:string' ],
+			"Invalid 'prototypes.templates' option given. Please specify a template engine name or disable prototyping." ],
 	};
 
-	return global.configutil.validateConfig(grunt, config);
+	if (!global.configutil.validateConfig(grunt, config))
+		return false;
+
+	// Does the templating engine exist?
+	var engine = grunt.config('config.prototypes.templates');
+	if (engine == "")
+		return true;
+
+	templateEngine = templateEngines[engine];
+
+	return (templateEngine != undefined);
 }
+

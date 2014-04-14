@@ -21,7 +21,10 @@ module.exports = function(grunt) {
 					dest: '<%= config.css_folder %>',
 					ext: '.css'
 				}
-			]
+			],
+			options: {
+				quiet: true
+			}
 		}
 	});
 
