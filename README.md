@@ -8,7 +8,7 @@ Sequence build automation.
     + *Coffeescript* - [Coffeescript](http://coffeescript.org/) is compiled and concatenated into a single app.js file, and minified as necessary.
     + *Sass* - [Sass](http://sass-lang.com/) files are also compiled and concatenated into individual .css files, allowing multiple 'main' stylesheets.
     + *Prototyping* - When working on the initial static build, cycle will serve up html files on a local webserver.
-    + *Livereload* - All asset files, including static html, is watched for changes and will instantly update in the browser.
+    + *Livereload* - All asset files, including static html, are watched for changes and will instantly update in the browser.
     + *Bower* - Any [Bower](http://bower.io/) components installed are automatically found and merged into vendor.css and vendor.js files for easy addition. [Bower](http://bower.io/) is also watched so that installing any additional components will also update the browser.
     + *Extensible* - Any other automation features are easily added without intefering with existing features, or breaking backwards-compatibility with older cycle projects.
 
