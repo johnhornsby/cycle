@@ -1,0 +1,41 @@
+{
+  "name": "cycle",
+  "version": "0.1.0",
+  "description": "Sequence front-end build automation.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aaerox/cycle.git"
+  },
+  "author": "Jon Daly",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aaerox/cycle/issues"
+  },
+  "bin": {
+    "cycle": "bin/cycle"
+  },
+  "engines": {
+    "node": ">= 0.10.26"
+  },
+  "preferGlobal": true,
+  "homepage": "https://github.com/aaerox/cycle",
+  "dependencies": {
+    "grunt": "^0.4.4",
+    "grunt-contrib-coffee": "^0.10.1",
+    "grunt-contrib-sass": "^0.7.3",
+    "grunt-sass": "^0.12.1",
+    "grunt-contrib-clean": "^0.5.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-contrib-concat": "^0.4.0",
+    "grunt-contrib-uglify": "^0.4.0",
+    "grunt-contrib-cssmin": "^0.9.0",
+    "grunt-contrib-connect": "^0.7.1",
+    "connect-livereload": "^0.3.2",
+    "express": "^4.0.0",
+    "connect": "^2.14.4",
+    "grunt-notify": "^0.2.20",
+    "colors": "^0.6.2",
+    "ncp": "^0.5.0",
+    "grunt-bower": "git://github.com/aaerox/grunt-bower.git"
+  }
+}

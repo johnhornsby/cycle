@@ -1,0 +1,42 @@
+#!/usr/bin/env node
+
+'use strict';
+
+var fs = require('fs'),
+	path = require('path'),
+	colors = require('colors'),
+	ncp = require('ncp');
+
+
+process.title = 'cycle';
+console.log("[" + "cycle".green + "] Launching..");
+
+// Store our current project directory
+var cwd = process.cwd();
+global.cyclecwd = cwd;
+
+// Locate our cycle grunt folder
+var cycleFolder = path.join(process.argv[1], '../../');
+process.chdir(cycleFolder);
+
+// Are we requesting a scaffold setup?
+if (process.argv.length >= 3 && process.argv[2] == 'setup') 
+{
+	console.log("[" + "cycle".green + "] Setting up project scaffold..");
+	
+	ncp(path.join(cycleFolder, 'setup'), cwd, function (err) {
+		if (err)
+			return console.error("[" + "cycle".green + "] Unable to setup scaffold - " + err[0].message.red);
+
+		console.log("[" + "cycle".green + "] Done!");
+	});
+}
+else
+{
+	// Load our local utilities
+	global.configutil = require('../util/config');
+	global.loghook = require('../util/loghook');
+	
+	// Require and run grunt
+	require('grunt').cli();
+}
