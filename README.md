@@ -15,7 +15,7 @@ Create a new folder to setup a project
 
 Create a scaffold project `cycle setup`
 
-Initialize node and bower modules `npm install` `bower install`
+Initialize bower modules `bower install`
 
 Build your project `cycle`
 
