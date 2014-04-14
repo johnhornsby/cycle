@@ -10,7 +10,7 @@ module.exports = {
 		"root": "./",			// The path to our static HTML files
 		"port": 3000,			// The port to run the webserver on
 		"livereload": true,		// Whether to use livereload to refresh content
-		"templates": "haml"		// The template engine to use, blank for none.
+		"templates": ""			// The template engine to use, blank for none.
 
 		// See https://github.com/visionmedia/consolidate.js/#supported-template-engines for supported template engine list.
 		// Any template engines need to be installed globally, i.e. 'npm install hamljs -g', 'npm install jade -g'
