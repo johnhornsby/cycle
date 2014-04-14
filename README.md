@@ -16,3 +16,5 @@ Create a new folder to setup a project
 Create a scaffold project `cycle setup`
 
 Build your project `cycle`
+
+Modify your **cycleconfig.js** file in the **assets** folder to configure cycle.
