@@ -6,14 +6,15 @@ Sequence build automation.
 
 + **Automation**
     + *Coffeescript* - Coffeescript is compiled and concatenated into a single app.js file, and minified as necessary.
-    + *Sass* - .scss files are also compiled and concatenated into individual .css files, allowing multiple 'main' stylesheets.
+    + *Sass* - Scss files are also compiled and concatenated into individual .css files, allowing multiple 'main' stylesheets.
     + *Prototyping* - When working on the initial static build, cycle will serve up html files on a local webserver.
     + *Livereload* - All asset files, including static html, is watched for changes and will instantly update in the browser.
     + *Bower* - Any bower components installed are automatically found and merged into vendor.css and vendor.js files for easy addition. Bower is also watched so that installing any additional components will also update the browser.
 
 + **Configuration**
-    + *Completely modular configuration* - modules that aren't being used (bower, sass, etc) aren't even loaded if they aren't necessary.
-    + *Extensive error checking* - the configuration is parsed and checked extensively, giving a verbose error if anything is misconfigured.
+    + *Highly configurable* - Cycle is designed to be able to adapt to any project through it's configuration. All automation features are configurable, and other options for this are easily added.
+    + *Modular* - Modules that aren't being used (bower, sass, etc) aren't even loaded if they aren't necessary, speeding up load and watch times.
+    + *Extensive error checking* - The configuration is parsed and checked extensively, giving a verbose error if anything is misconfigured.
 
 + **Setup**
     + *Easy* - Cycle is configured as a global module, and only needs to be installed once on a machine.
