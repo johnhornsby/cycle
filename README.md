@@ -7,7 +7,7 @@ Sequence build automation.
 To use
 ------
 
-Install cycle globally `npm install https://github.com/aaerox/cycle -g`
+Install cycle globally `npm install git://github.com/aaerox/cycle.git -g`
 
 Create a new folder to setup a project
 `mkdir project`
