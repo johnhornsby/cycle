@@ -1,15 +1,19 @@
-module.exports = function(grunt) {
+module.exports = {
+	name: 'task-watch',
+	dependencies: ['task-notify'],
+	register: register,
+	buildTask: false
+};
+
+function register(grunt) {
+
 	grunt.config('watch', {
 	});
 
 	// Load our required npm tasks
 	grunt.task.loadNpmTasks('grunt-contrib-watch');
-
-	// Configure our generic notification
-	grunt.config('notify.watch', {
-		options : {
-			message: 'Watch assets updated.'
-	}});
-
+	
 	grunt.registerTask('task-watch', 'Preprocess coffeescript files for the site.', ['watch']);
+
+	return true;
 };

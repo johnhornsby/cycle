@@ -17,6 +17,8 @@ global.cyclecwd = cwd;
 
 // Locate our cycle grunt folder
 var cycleFolder = path.join(process.argv[1], '../../');
+global.cycleFolder = cycleFolder;
+
 process.chdir(cycleFolder);
 
 // Are we requesting a scaffold setup?
@@ -36,7 +38,8 @@ else
 	// Load our local utilities
 	global.configutil = require('../util/config');
 	global.loghook = require('../util/loghook');
-	
+	global.taskloader = require('../util/taskloader');
+
 	// Require and run grunt
 	require('grunt').cli();
 }

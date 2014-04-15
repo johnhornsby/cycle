@@ -7,6 +7,15 @@ module.exports = function(grunt) {
 		buildTasks: [],
 		clean: {
 			temp: [ '.tmp/' ]
+		},
+
+		// Generic messages
+		notify: {
+			watch: {
+				options: {
+					message: 'Watch assets updated.'
+				}
+			}
 		}
 	});
 
@@ -19,11 +28,8 @@ module.exports = function(grunt) {
 	// Hijack the logger
 	global.loghook(grunt);
 
-	// Load our utility tasks
-	grunt.loadTasks('tasks/util');
-
-	// Load per-task configs from separate files.
-	grunt.loadTasks('tasks');
+	// Load all tasks through our task loader
+	global.taskloader(grunt);
 
 	// Load some npm tasks
 	grunt.task.loadNpmTasks('grunt-contrib-clean');

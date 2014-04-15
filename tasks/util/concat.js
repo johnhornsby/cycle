@@ -1,4 +1,12 @@
-module.exports = function(grunt) {
+module.exports = {
+	name: 'task-concat',
+	dependencies: [],
+	register: register,
+	buildTask: false
+};
+
+function register(grunt) {
+
 	grunt.config('concat', {
 		options: {
 			separator: ';',
@@ -9,5 +17,7 @@ module.exports = function(grunt) {
 	grunt.task.loadNpmTasks('grunt-contrib-concat');
 	
 	// Register a dud task to keep grunt happy
-	grunt.registerTask('task-concat', 'Does nothing.', ['']);
+	grunt.registerTask('task-concat', 'Does nothing.', []);
+
+	return true;
 };

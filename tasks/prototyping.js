@@ -10,17 +10,24 @@ var templateEngines = {
 
 
 // This file is used to set up local HTML file prototyping.
-module.exports = function(grunt) {
+module.exports = {
+	name: 'task-prototype',
+	dependencies: ['task-watch', 'task-notify'],
+	register: register,
+	buildTask: true
+};
+
+function register(grunt) {
 
 	if (grunt.config('config.prototyping') === false) {
-		grunt.registerTask('task-prototype', 'Disabled.', ['']);
-		return;
+		grunt.registerTask('task-prototype', 'Disabled.', []);
+		return false;
 	}
 
 	// Validate our configuration
 	if (!verifyConfig(grunt)) {
-		grunt.registerTask('task-prototype', 'Disabled.', ['']);
-		return;
+		grunt.registerTask('task-prototype', 'Disabled.', []);
+		return false;
 	}
 
 	// Load our required npm tasks
@@ -73,16 +80,12 @@ module.exports = function(grunt) {
 	var connect = require('connect');
 
 	grunt.registerTask('task-prototype', 'Launches concurrent prototype server.', function () {
-		grunt.task.run('consolidate:dist');
+		if (templateEngine != undefined)
+			grunt.task.run('consolidate:dist');
 
 		loadExpress(grunt);
 		grunt.task.run('notify:prototyping');
 	});
-
-	// Add our task to the build list
-	var tasks = grunt.config('buildTasks');
-	tasks.push('task-prototype');
-	grunt.config('buildTasks', tasks);
 
 	// Configure our notification
 	grunt.config('notify.prototyping', {
@@ -90,6 +93,8 @@ module.exports = function(grunt) {
 			message: 'Server running at http://localhost:' + grunt.config('config.prototypes.port')
 		}
 	});
+
+	return true;
 };
 
 

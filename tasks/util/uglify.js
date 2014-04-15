@@ -1,4 +1,11 @@
-module.exports = function(grunt) {
+module.exports = {
+	name: 'task-uglify',
+	dependencies: [],
+	register: register,
+	buildTask: false
+};
+
+function register(grunt) {
 
 	if (grunt.config.get('config.production') === true) {
 		grunt.config('uglify', {
@@ -12,5 +19,7 @@ module.exports = function(grunt) {
 	}
 
 	// Register a dud task to keep grunt happy
-	grunt.registerTask('task-uglify', 'Does nothing.', ['']);
+	grunt.registerTask('task-uglify', 'Does nothing.', []);
+
+	return true;
 };

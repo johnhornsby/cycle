@@ -1,9 +1,16 @@
-module.exports = function(grunt) {
+module.exports = {
+	name: 'task-styles',
+	dependencies: ['task-watch'],
+	register: register,
+	buildTask: true
+};
+
+function register(grunt) {
 
 	// Validate our configuration
 	if (!verifyConfig(grunt)) {
-		grunt.registerTask('task-styles', 'Disabled.', ['']);
-		return;
+		grunt.registerTask('task-styles', 'Disabled.', []);
+		return false;
 	}
 
 	// Load our required npm tasks
@@ -57,10 +64,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('task-styles', 'Preprocess styles for site.', taskList);
 
-	// Add our task to the build list
-	var tasks = grunt.config('buildTasks');
-	tasks.push('task-styles');
-	grunt.config('buildTasks', tasks);
+	return true;
 };
 
 

@@ -1,9 +1,16 @@
-module.exports = function(grunt) {
+module.exports = {
+	name: 'task-coffee',
+	dependencies: ['task-concat', 'task-uglify', 'task-watch'],
+	register: register,
+	buildTask: true
+};
+
+function register(grunt) {
 
 	// Validate our configuration
 	if (!verifyConfig(grunt)) {
-		grunt.registerTask('task-coffee', 'Disabled.', ['']);
-		return;
+		grunt.registerTask('task-coffee', 'Disabled.', []);
+		return false;
 	}
 
 	// Load our required npm tasks
@@ -61,10 +68,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('task-coffee', 'Preprocess coffeescript files for the site.', taskList);
 
-	// Add our task to the build list
-	var tasks = grunt.config('buildTasks');
-	tasks.push('task-coffee');
-	grunt.config('buildTasks', tasks);
+	return true;
 };
 
 

@@ -1,17 +1,24 @@
-module.exports = function(grunt) {
+module.exports = {
+	name: 'task-bower',
+	dependencies: ['task-concat', 'task-uglify', 'task-watch'],
+	register: register,
+	buildTask: true
+};
+
+function register(grunt) {
 
 	// Validate our configuration
 	if (!verifyConfig(grunt)) {
-		grunt.registerTask('task-bower', 'Disabled.', ['']);
-		return;
+		grunt.registerTask('task-bower', 'Disabled.', []);
+		return false;
 	}
 
 	// Only load our bower module if we're running with no arguments (first load), or
 	// if our watch script has triggered a task-bower run. This is because loading
 	// bower through grunt is pretty heavy on load times.
 	if (!isBowerLaunch(grunt)) {
-		grunt.registerTask('task-bower', 'Disabled.', ['']);
-		return;
+		grunt.registerTask('task-bower', 'Disabled.', []);
+		return false;
 	}
 
 	grunt.config('bower', {	
@@ -24,6 +31,8 @@ module.exports = function(grunt) {
 	});
 
 	// Load our required npm tasks
+	grunt.task.loadNpmTasks('grunt-contrib-cssmin');
+
 	var cwd = process.cwd();		// Trick bower into thinking it's in the project folder during setup
 	var tasks = require('path').resolve('node_modules/grunt-bower/tasks');
 	process.chdir(global.cyclecwd);
@@ -83,10 +92,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('task-bower', 'Prepare all vendor resources.', taskList);
 
-	// Add our task to the build list
-	var tasks = grunt.config('buildTasks');
-	tasks.push('task-bower');
-	grunt.config('buildTasks', tasks);
+	return true;
 };
 
 function verifyConfig(grunt) {
