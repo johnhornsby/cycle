@@ -24,7 +24,7 @@ function register(grunt) {
 			],
 			dest: path.join(grunt.config('config.sitecore_path'), grunt.config('config.js_folder'))
 		}],
-		verbose: true
+		verbose: false
 	});
 
 	grunt.config('sync.sccss', {
@@ -35,7 +35,7 @@ function register(grunt) {
 			],
 			dest: path.join(grunt.config('config.sitecore_path'), grunt.config('config.css_folder'))
 		}],
-		verbose: true
+		verbose: false
 	});
 
 	// Assign our tasks based on production mode
