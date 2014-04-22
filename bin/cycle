@@ -11,6 +11,9 @@ var fs = require('fs'),
 process.title = 'cycle';
 console.log("[" + "cycle".green + "] Launching..");
 
+// Crude mechanism to stop grunt exiting before tasks are completed
+global.completeCount = 0
+
 // Store our current project directory
 var cwd = process.cwd();
 global.cyclecwd = cwd;
@@ -39,6 +42,10 @@ else
 	global.configutil = require('../util/config');
 	global.loghook = require('../util/loghook');
 	global.taskloader = require('../util/taskloader');
+	global.tfshook = require('../util/tfs');
+
+	// Make sure our end tasks are executed
+	process.argv = process.argv.concat(['task-waitexit']);
 
 	// Require and run grunt
 	require('grunt').cli();

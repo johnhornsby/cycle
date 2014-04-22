@@ -28,6 +28,11 @@ module.exports = function(grunt) {
 	// Hijack the logger
 	global.loghook(grunt);
 
+	// Lookout for TFS?
+	var useTFS = grunt.config('config.useTFS');
+	if (grunt.config('config.useTFS') !== undefined && useTFS === true)
+		global.tfshook(grunt);
+
 	// Load all tasks through our task loader
 	global.taskloader(grunt);
 
@@ -36,8 +41,8 @@ module.exports = function(grunt) {
 
 	// Register our build and watch tasks
 	grunt.registerTask('buildTasks', grunt.config('buildTasks'));
-	grunt.registerTask('build', ['clean:temp', 'buildTasks']);
-	grunt.registerTask('default', ['build', 'task-watch']);
+	grunt.registerTask('build', ['clean:temp', 'buildTasks', 'task-watch']);
+	grunt.registerTask('default', ['build']);
 
 	grunt.registerTask('config', function () { 
 		console.log(grunt.config.get()); 

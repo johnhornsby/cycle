@@ -15,13 +15,11 @@ function register(grunt) {
 		return false;
 	}
 
-	// Use a synchronize script
+	// Synchronize our normal assets
 	grunt.config('sync.scjs', {
 		files: [{
 			cwd: '<%= config.js_folder %>',
-			src: [
-				'**'
-			],
+			src: ['**'],
 			dest: path.join(grunt.config('config.sitecore_path'), grunt.config('config.js_folder'))
 		}],
 		verbose: false
@@ -30,16 +28,24 @@ function register(grunt) {
 	grunt.config('sync.sccss', {
 		files: [{
 			cwd: '<%= config.css_folder %>',
-			src: [
-				'**'
-			],
+			src: ['**'],
 			dest: path.join(grunt.config('config.sitecore_path'), grunt.config('config.css_folder'))
 		}],
 		verbose: false
 	});
 
+	// Synchronize all the markup we can find
+	grunt.config('sync.asp', {
+		files: [{
+			cwd: './',
+			src: ['**/*.ascx', '**/*.aspx'],
+			dest: '<%= config.sitecore_path %>'
+		}],
+		verbose: false
+	});
+
 	// Assign our tasks based on production mode
-	grunt.registerTask('task-sitecore', 'Synchronizes assets for sitecore.', ['sync:scjs', 'sync:sccss']);
+	grunt.registerTask('task-sitecore', 'Synchronizes assets for sitecore.', ['sync:scjs', 'sync:sccss', 'sync:asp']);
 
 	return true;
 };

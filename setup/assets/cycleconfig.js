@@ -16,6 +16,9 @@ module.exports = {
 		// Any template engines need to be installed globally, i.e. 'npm install hamljs -g', 'npm install jade -g'
 	},
 
+	// Automatically check out files that are under TFS source control and need to be written to 
+	"useTFS": true,
+
 	// Folder paths to relevant assets.
 	"scss_folder": "assets/scss",		// Remove me to disable sass
 	"css_folder": "assets/css",
