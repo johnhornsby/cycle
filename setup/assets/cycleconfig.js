@@ -27,6 +27,11 @@ module.exports = {
 	//'app' will generate app.js and app.min.js in production.
 	"coffee_appfile": "app",
 	
+	// If you want your javascript concatenated and minified into a single app file, you
+	// can specific a scripts folder and the output filename to be added to the js folder.
+	//"javascript_appfolder": "assets/scripts",
+	//"javascript_appfile": "app",
+
 	// The path to the sitecore project for syncing changes.
 	// If this is removed then no syncing will be performed.
 	"sitecore_path" : "C:/Sitecore/HelloWorld/Website",
@@ -37,7 +42,7 @@ module.exports = {
 	"bower_enabled": true,
 
 	// Use this to override cycle if it isn't copying the particular 
-	// bower assets that you require.
+	// bower components that you require.
 	"bower_files": {
 		// Example
 		/*"modernizr": {
@@ -45,5 +50,10 @@ module.exports = {
 				"modernizr.js" 
 			]
 		}*/
-	}
+	},
+
+	// Use this to specific bower components which should be included before anything else.
+	"bower_priorities": [
+		"jquery.js"
+	]
 };

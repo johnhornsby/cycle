@@ -60,8 +60,17 @@ function register(grunt) {
 	});
 
 	// Concatenate our temporary javascript files into our vendor js file
+	var priorities = grunt.config('config.bower_priorities');
+	var srcFiles = [];
+
+	priorities.forEach(function (val) {
+		srcFiles.push('.tmp/bower/' + val);
+	});
+
+	srcFiles.push('.tmp/bower/**/*.js');
+
 	grunt.config('concat.bowerjs', {
-		src: '.tmp/bower/**/*.js',
+		src: srcFiles,
 		dest: '<%= config.js_folder %>/vendor.js'
 	});
 
@@ -114,6 +123,18 @@ function verifyConfig(grunt) {
 		config = {
 			'bower_files': [ ['type:object'],
 				"Invalid 'bower_files' config option provided. Please use an object to describe bower files (you can leave this blank), or disable bower by removing the 'bower_path' setting." ]
+		};
+
+		if (!global.configutil.validateConfig(grunt, config))
+			return false;
+	}
+
+	// If bower_priorities exists, validate them too
+	var bowerPriorities = grunt.config('config.bower_priorities');
+	if (bowerPriorities !== undefined) {
+		config = {
+			'bower_priorities': [ ['type:array'],
+				"Invalid 'bower_priorities' config option provided. Please use an array to describe bower priority files (you can leave this blank), or disable bower by removing the 'bower_path' setting." ]
 		};
 
 		if (!global.configutil.validateConfig(grunt, config))

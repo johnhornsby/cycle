@@ -100,6 +100,8 @@ var validations = {
 	},
 
 	"type": function (grunt, fieldValue, arg) {
+		if (arg === 'array')
+			return fieldValue instanceof Array;
 		return typeof(fieldValue) === arg;
 	},
 

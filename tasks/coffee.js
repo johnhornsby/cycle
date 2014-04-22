@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'task-coffee',
-	dependencies: ['task-concat', 'task-uglify', 'task-watch'],
+	dependencies: ['task-concat', 'task-uglify', 'task-watch', 'task-sitecore'],
 	register: register,
 	buildTask: true
 };
@@ -63,8 +63,8 @@ function register(grunt) {
 
 	// Assign our tasks based on production mode
 	var taskList = (grunt.config.get('config.production') === true) ? 
-									['clean:coffee', 'coffee:coffee', 'concat:coffee', 'uglify:coffee'] :
-									['clean:coffee', 'coffee:coffee', 'concat:coffee'];
+									['clean:coffee', 'coffee:coffee', 'concat:coffee', 'uglify:coffee', 'task-sitecore'] :
+									['clean:coffee', 'coffee:coffee', 'concat:coffee', 'task-sitecore'];
 
 	grunt.registerTask('task-coffee', 'Preprocess coffeescript files for the site.', taskList);
 
