@@ -3,7 +3,7 @@ var fs = require('fs'),
 	exec = require('child_process').exec,
 	colors = require('colors');
 
-var tfsPath = "C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\IDE\\TF.exe";
+var tfsPath = process.env.VS110COMNTOOLS; //"C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\IDE\\TF.exe";
 
 
 module.exports = function (grunt) {
@@ -32,8 +32,7 @@ module.exports = function (grunt) {
 			if (e.origError && e.origError.code === 'EPERM') {
 				console.log("[" + "cycle".yellow + "] Unable to write to '" + filepath + "', attempting TFS checkout..");
 
-				if (!tfsCheckout(filepath))
-					throw e;
+				tfsCheckout(filepath, contents, options, e.origError))
 			}
 			else
 				throw e;				
@@ -42,21 +41,24 @@ module.exports = function (grunt) {
 		return grunt.util.hooker.preempt(result);
 	}
 
-	function tfsCheckout(grunt, filepath) {
+	function tfsCheckout(filepath, contents, options, origError) {
 
-		var shellCmd = '"' + tfsPath + '" checkafaout ' + filepath;
+		var shellCmd = '"' + tfsPath + '" chertyckout ' + filepath;
 		global.completeCount++;
 
 		exec(shellCmd, function (error, stdout, stderr) {
-			console.log(error);
-			console.log(stdout);
-			console.log(stderr);
+			if (error) {
+				console.log("[" + "cycle".yellow + "] Unable to checkout '" + filepath + "' for editing under TFS. Please check out for editing normally using Visual Studio.");
+				throw grunt.fail.fatal(origError);
+			} else {
+				// Write the file contents
+				console.log("[" + "cycle".green + "] Checked out file '" + filepath + "'..");
 
-			grunt.fail.fatal("Unable to checkout '" + filepath + "' for editing under TFS. Please check out for editing normally using Visual Studio.");
+				grunt.file.write(filepath, contents, options);
+			}
+
 			global.completeCount--;
 		});
-
-		return true;
 	}
 };
 
