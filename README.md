@@ -12,6 +12,9 @@ Sequence build automation.
     + *Livereload* - All asset files, including static html, are watched for changes and will instantly update in the browser.
     + *Bower* - Any [Bower](http://bower.io/) components installed are automatically found and merged into vendor.css and vendor.js files for easy addition. [Bower](http://bower.io/) is also watched so that installing any additional components will also update the browser.
     + *Extensible* - Any other automation features are easily added without interfering with existing features, or breaking backwards-compatibility with older cycle projects.
+    + *Sitecore* - If aspx and ascx files are modified, the changes are synced with the live site and the browser is refreshed immediately. All js and css assets are also constantly synced with the sitecore folder.
+    + *TFS* - Any files modified that are protected under TFS control will be automatically checked out for editing.
+
 
 + **Configuration**
     + *Highly configurable* - Cycle is designed to be able to adapt to any project through it's configuration. All automation features are configurable, and other options for this are easily added.
