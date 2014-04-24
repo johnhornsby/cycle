@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'task-sitecore',
-	dependencies: ['task-sync'],
+	dependencies: ['task-sync', 'task-watch'],
 	register: register,
 	buildTask: true
 };
@@ -11,6 +11,8 @@ function register(grunt) {
 
 	// Validate our configuration
 	if (!verifyConfig(grunt)) {
+		grunt.registerTask('task-sitecore-css', 'Disabled.', []);
+		grunt.registerTask('task-sitecore-js', 'Disabled.', []);
 		grunt.registerTask('task-sitecore', 'Disabled.', []);
 		return false;
 	}
@@ -37,15 +39,25 @@ function register(grunt) {
 	// Synchronize all the markup we can find
 	grunt.config('sync.asp', {
 		files: [{
-			cwd: './',
 			src: ['**/*.ascx', '**/*.aspx'],
 			dest: '<%= config.sitecore_path %>'
 		}],
 		verbose: false
 	});
 
+	// Keep an eye on our markup
+	grunt.config('watch.asp', {
+		files: ['**/*.ascx', '**/*.aspx'],
+		tasks: ['sync:asp'],
+		options: {
+			livereload: true
+		}
+	});
+
 	// Assign our tasks based on production mode
-	grunt.registerTask('task-sitecore', 'Synchronizes assets for sitecore.', ['sync:scjs', 'sync:sccss', 'sync:asp']);
+	grunt.registerTask('task-sitecore-css', 'Synchronizes assets for sitecore.', ['sync:sccss']);
+	grunt.registerTask('task-sitecore-js', 'Synchronizes assets for sitecore.', ['sync:scjs']);
+	grunt.registerTask('task-sitecore', 'Synchronizes assets for sitecore.', ['sync:asp', 'sync:scjs', 'sync:sccss']);
 
 	return true;
 };

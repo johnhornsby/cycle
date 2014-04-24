@@ -45,8 +45,25 @@ else
 	global.tfshook = require('../util/tfs');
 
 	// Make sure our end tasks are executed
-	process.argv = process.argv.concat(['task-waitexit']);
+	if (isSpecificLaunch())
+		process.argv = process.argv.concat(['task-waitexit']);
 
 	// Require and run grunt
 	require('grunt').cli();
+}
+
+// Determines whether specific tasks have been provided to launch
+function isSpecificLaunch() {
+	if (process.argv.length === 2)
+		return false;
+
+	// Check whether they're all arguments
+	var taskArg = false;
+
+	process.argv.forEach(function (taskName, idx) {
+		if (idx > 1 && taskName[0] !== '-')
+			taskArg = true;
+	});
+
+	return taskArg;
 }

@@ -42,7 +42,7 @@ module.exports = function(grunt) {
 	// Register our build and watch tasks
 	grunt.registerTask('buildTasks', grunt.config('buildTasks'));
 	grunt.registerTask('build', ['clean:temp', 'buildTasks', 'task-watch']);
-	grunt.registerTask('default', ['build']);
+	grunt.registerTask('default', ['build', 'task-waitexit']);
 
 	grunt.registerTask('config', function () { 
 		console.log(grunt.config.get()); 

@@ -2,7 +2,8 @@ module.exports = {
 	name: 'task-styles',
 	dependencies: ['task-watch', 'task-sitecore'],
 	register: register,
-	buildTask: true
+	buildTask: true,
+	catchTemplate: /(sync.*)\w+/g
 };
 
 function register(grunt) {
@@ -59,8 +60,8 @@ function register(grunt) {
 
 	// Assign our tasks based on production mode
 	var taskList = (grunt.config.get('config.production') === true) ? 
-									['sass:styles', 'cssmin:styles', 'task-sitecore'] :
-									['sass:styles', 'task-sitecore'];
+									['sass:styles', 'cssmin:styles', 'task-sitecore-css'] :
+									['sass:styles', 'task-sitecore-css'];
 
 	grunt.registerTask('task-styles', 'Preprocess styles for site.', taskList);
 

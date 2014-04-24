@@ -47,6 +47,7 @@ module.exports = function (grunt) {
 	if (noTasks) {
 		taskList = grunt.config('buildTasks');
 		taskList.push('task-watch');
+		taskList.push('task-waitexit');
 	}
 
 	// Resolve these modules to a list of tasks to load

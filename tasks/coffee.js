@@ -63,8 +63,8 @@ function register(grunt) {
 
 	// Assign our tasks based on production mode
 	var taskList = (grunt.config.get('config.production') === true) ? 
-									['clean:coffee', 'coffee:coffee', 'concat:coffee', 'uglify:coffee', 'task-sitecore'] :
-									['clean:coffee', 'coffee:coffee', 'concat:coffee', 'task-sitecore'];
+									['clean:coffee', 'coffee:coffee', 'concat:coffee', 'uglify:coffee', 'task-sitecore-js'] :
+									['clean:coffee', 'coffee:coffee', 'concat:coffee', 'task-sitecore-js'];
 
 	grunt.registerTask('task-coffee', 'Preprocess coffeescript files for the site.', taskList);
 

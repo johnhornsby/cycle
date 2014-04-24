@@ -43,8 +43,8 @@ function register(grunt) {
 
 	// Assign our tasks based on production mode
 	var taskList = (grunt.config.get('config.production') === true) ? 
-									['clean:js', 'concat:js', 'uglify:js', 'task-sitecore'] :
-									['clean:js', 'concat:js', 'task-sitecore'];
+									['clean:js', 'concat:js', 'uglify:js', 'task-sitecore-js'] :
+									['clean:js', 'concat:js', 'task-sitecore-js'];
 
 	grunt.registerTask('task-javascript', 'Processes javascript files.', taskList);
 

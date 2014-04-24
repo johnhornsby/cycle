@@ -3,7 +3,7 @@ var fs = require('fs'),
 	exec = require('child_process').exec,
 	colors = require('colors');
 
-var tfsPath = process.env.VS110COMNTOOLS; //"C:\\Program Files (x86)\\Microsoft Visual Studio 11.0\\Common7\\IDE\\TF.exe";
+var tfsPath = process.env.VS110COMNTOOLS;
 
 
 module.exports = function (grunt) {
@@ -32,7 +32,7 @@ module.exports = function (grunt) {
 			if (e.origError && e.origError.code === 'EPERM') {
 				console.log("[" + "cycle".yellow + "] Unable to write to '" + filepath + "', attempting TFS checkout..");
 
-				tfsCheckout(filepath, contents, options, e.origError))
+				tfsCheckout(filepath, contents, options, e.origError);
 			}
 			else
 				throw e;				
