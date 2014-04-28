@@ -4,11 +4,11 @@ var templateEngine = null;
 var templateEngines = {
 	'haml': {
 		name: 'haml',
-		templateString: "*.haml"
+		templateString: "**/*.haml"
 	},
 	'jade': {
 		name: 'jade',
-		templateString: "*.jade"
+		templateString: "**/*.jade"
 	}
 };
 
