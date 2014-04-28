@@ -18,7 +18,8 @@ module.exports = {
 	name: 'task-prototype',
 	dependencies: ['task-watch', 'task-notify'],
 	register: register,
-	buildTask: true
+	buildTask: true,
+	catchTemplate: /(consolidate.*)\w+/g
 };
 
 function register(grunt) {
@@ -67,7 +68,7 @@ function register(grunt) {
 		// Keep an eye on our template files
 		grunt.config('watch.prototypinghtml', {
 			files: [templateEngine.templateString],
-			tasks: ['notify:watch'],
+			tasks: ['consolidate:dist', 'notify:watch'],
 			options: {
 				livereload: true
 			}

@@ -2,7 +2,8 @@ module.exports = {
 	name: 'task-sync',
 	dependencies: [],
 	register: register,
-	buildTask: false
+	buildTask: false,
+	catchTemplate: /(sync.*)\w+/g
 };
 
 function register(grunt) {

@@ -2,8 +2,7 @@ module.exports = {
 	name: 'task-styles',
 	dependencies: ['task-watch', 'task-sitecore'],
 	register: register,
-	buildTask: true,
-	catchTemplate: /(sync.*)\w+/g
+	buildTask: true
 };
 
 function register(grunt) {
