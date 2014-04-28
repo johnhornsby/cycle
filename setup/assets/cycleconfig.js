@@ -23,9 +23,12 @@ module.exports = {
 	"scss_folder": "assets/scss",		// Remove me to disable sass
 	"css_folder": "assets/css",
 	"coffee_folder": "assets/coffee",	// Remove me to disable coffeescript
-	"js_folder" : "assets/js",
-	"img_folder" : "assets/img",
+	"js_folder": "assets/js",
+	"img_folder": "assets/img",
 	
+	// If you want to use rubysass (albeit slower) for compatibility reasons, then enable this option.
+	"use_rubysass": false,
+
 	// The name of the concatenated app file to generate. 
 	//'app' will generate app.js and app.min.js in production.
 	"coffee_appfile": "app",

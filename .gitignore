@@ -1,3 +1,4 @@
-us.stackdump
 node_modules
 .tmp
+us.stackdump
+devcycle.bat

@@ -38,6 +38,7 @@
     "ncp": "^0.5.0",
     "grunt-bower": "git://github.com/aaerox/grunt-bower.git",
     "grunt-consolidate": "^0.1.0",
-    "grunt-sync": "0.0.7"
+    "grunt-sync": "0.0.7",
+    "grunt-contrib-sass": "^0.7.3"
   }
 }

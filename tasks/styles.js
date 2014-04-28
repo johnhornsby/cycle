@@ -15,7 +15,13 @@ function register(grunt) {
 	}
 
 	// Load our required npm tasks
-	grunt.task.loadNpmTasks('grunt-sass');
+	var useRuby = grunt.config('config.use_rubysass');
+
+	if (useRuby)
+		grunt.task.loadNpmTasks('grunt-contrib-sass');
+	else
+		grunt.task.loadNpmTasks('grunt-sass');
+
 	if (grunt.config.get('config.production') === true)
 		grunt.task.loadNpmTasks('grunt-contrib-cssmin');
 

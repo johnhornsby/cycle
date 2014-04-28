@@ -5,6 +5,10 @@ var templateEngines = {
 	'haml': {
 		name: 'haml',
 		templateString: "*.haml"
+	},
+	'jade': {
+		name: 'jade',
+		templateString: "*.jade"
 	}
 };
 
@@ -39,7 +43,10 @@ function register(grunt) {
 		// Preprocess templates
 		grunt.config('consolidate', {
 			options: {
-				engine: templateEngine.name
+				engine: templateEngine.name,
+				local: {
+					pretty: true
+				}
 			},
 			dist: {
 				files: [{
