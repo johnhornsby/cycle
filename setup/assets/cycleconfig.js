@@ -20,23 +20,26 @@ module.exports = {
 	"useTFS": true,
 
 	// Folder paths to relevant assets.
-	"scss_folder": "assets/scss",		// Remove me to disable sass
 	"css_folder": "assets/css",
-	"coffee_folder": "assets/coffee",	// Remove me to disable coffeescript
 	"js_folder": "assets/js",
+	"scss_folder": "assets/scss",		// Remove me to disable sass
+	"coffee_folder": "assets/coffee",	// Remove me to disable coffeescript
+	
 	"img_folder": "assets/img",
 	
-	// If you want to use rubysass (albeit slower) for compatibility reasons, then enable this option.
+	// If you want to use ruby sass (albeit slower) for compatibility reasons, then enable this option.
 	"use_rubysass": false,
+
+	// Are we using requirejs to build our js output?
+	"use_requirejs": true, 
 
 	// The name of the concatenated app file to generate. 
 	//'app' will generate app.js and app.min.js in production.
-	"coffee_appfile": "app",
+	"script_appfile": "app",
 	
-	// If you want your javascript concatenated and minified into a single app file, you
-	// can specific a scripts folder and the output filename to be added to the js folder.
-	//"javascript_appfolder": "assets/scripts",
-	//"javascript_appfile": "app",
+	// If you want additional javascript added to your single app file, specify your scripts folder location.
+	// Don't make this the same as your js_folder as that's just for output, not working code.
+	"javascript_appfolder": "assets/scripts",
 
 	// The path to the sitecore project for syncing changes.
 	// If this is removed then no syncing will be performed.
