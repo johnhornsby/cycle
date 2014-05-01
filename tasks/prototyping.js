@@ -59,7 +59,7 @@ function register(grunt) {
 
 					// Ignore partials prefixed with "_"
 					filter: function(srcFile) {
-			        	return !/\/_/.test(srcFile);
+			        	return !/(\/_)|(\\_)/.test(srcFile);
 			        }
 				}]
 			}
