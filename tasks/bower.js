@@ -25,6 +25,7 @@ function register(grunt) {
 		dist: {
 			dest: '.tmp/bower',
 			options: {
+				expand: true,
 				packageSpecific: grunt.config('config.bower_files')
 			}
 		},

@@ -1,6 +1,10 @@
+var fs = require('fs'),
+	path = require('path');
+
+
 module.exports = {
 	name: 'task-javascript',
-	dependencies: ['task-concat', 'task-uglify', 'task-watch', 'task-sitecore'],
+	dependencies: ['task-copy', 'task-concat', 'task-uglify', 'task-watch', 'task-sitecore'],
 	register: register,
 	buildTask: true
 };
@@ -21,17 +25,43 @@ function register(grunt) {
 	if (useRequire) {
 		grunt.task.loadNpmTasks('grunt-contrib-requirejs');
 
+		// Copy all our bower components to our js root
+		grunt.config('copy.bowerjs', {
+			files: [
+				{expand: true, cwd: '.tmp/bower', src: '**/*.js', dest: '.tmp/js'}
+			]
+		});
+
+		// Define a task to determine which require libraries to load
+		grunt.registerTask('task-javascript-rjs', 'Handles requirejs includes.', function () {
+			var files = walk('.tmp/js', '.tmp/js');
+			var includes = [];
+
+			files.forEach(function (file) {
+				if (path.extname(file) != '.js')
+					return;
+
+				// Don't include the main module
+				if (path.basename(file, '.js') == 'main')
+					return;
+
+				var module = path.dirname(file) + '/' + path.basename(file, '.js');
+				includes.push(module);
+			});
+
+			grunt.config('requirejs.compile.options.include', includes);
+		});
+
+		// Define our requirejs config
 		grunt.config('requirejs', {
 			compile: {
 				options: {
-					name: 'app',
+					name: 'main',
 	                baseUrl: '.tmp/js',
-	                out: '<%= config.js_folder %>/<%= config.coffee_appfile %>.js'/*,
-	                include:  ['lib/require'],
-
+	                out: '<%= config.js_folder %>/<%= config.script_appfile %>.js',
+	                optimize: 'none',
 	                paths: {
-	                    jquery: "lib/jquery-1.10.2"
-	                }*/
+	                }
 				}
 			}
 		});
@@ -113,6 +143,8 @@ function register(grunt) {
 		taskList.push('concat:js');
 
 	if (useRequire) {
+		taskList.push('copy:bowerjs');
+		taskList.push('task-javascript-rjs');
 		taskList.push('requirejs:compile');
 		if (grunt.config.get('config.production') === true)
 			taskList.push('uglify:app');
@@ -142,4 +174,21 @@ function verifyConfig(grunt) {
 	};
 
 	return global.configutil.validateConfig(grunt, config);
+}
+
+function walk(basedir, dir) {
+    var results = [];
+    var list = fs.readdirSync(dir);
+
+    list.forEach(function(file) {
+        file = dir + '/' + file;
+        var stat = fs.statSync(file);
+
+        if (stat && stat.isDirectory()) 
+        	results = results.concat(walk(basedir, file));
+        else 
+        	results.push(path.relative(basedir, file));
+    });
+
+    return results;
 }
