@@ -49,6 +49,21 @@ function register(grunt) {
 				includes.push(module);
 			});
 
+			// Sort by bower priorities
+			var priorities = grunt.config('config.bower_priorities');
+			if (priorities) {
+				includes.sort(function (a, b) {
+					for (var i=0; i < priorities.length; ++i) {
+						if (priorities[i].indexOf(path.basename(a) + '.js') != -1)
+							return -1;
+						if (priorities[i].indexOf(path.basename(b) + '.js') != -1)
+							return 1;
+					}
+
+					return 0;
+				});
+			}
+
 			grunt.config('requirejs.compile.options.include', includes);
 		});
 
@@ -59,9 +74,7 @@ function register(grunt) {
 					name: 'main',
 	                baseUrl: '.tmp/js',
 	                out: '<%= config.js_folder %>/<%= config.script_appfile %>.js',
-	                optimize: 'none',
-	                paths: {
-	                }
+	                optimize: 'none'
 				}
 			}
 		});
