@@ -46,7 +46,8 @@ function register(grunt) {
 			options: {
 				engine: templateEngine.name,
 				local: {
-					pretty: true
+					pretty: true,
+					compileDebug: !grunt.config('config.production')
 				}
 			},
 			dist: {
