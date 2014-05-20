@@ -43,7 +43,7 @@ module.exports = function (grunt) {
 
 	function tfsCheckout(filepath, contents, options, origError) {
 
-		var shellCmd = '"' + tfsPath + '" chertyckout ' + filepath;
+		var shellCmd = '"' + tfsPath + '" checkout ' + filepath;
 		global.completeCount++;
 
 		exec(shellCmd, function (error, stdout, stderr) {

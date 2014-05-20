@@ -2,7 +2,8 @@ module.exports = {
 	name: 'task-sitecore',
 	dependencies: ['task-sync', 'task-watch'],
 	register: register,
-	buildTask: true
+	buildTask: true,
+	catchTemplate: /(task-sitecore*)\w+/g
 };
 
 function register(grunt) {
@@ -48,13 +49,14 @@ function register(grunt) {
 	// Keep an eye on our markup
 	grunt.config('watch.asp', {
 		files: ['**/*.ascx', '**/*.aspx'],
-		tasks: ['sync:asp'],
+		tasks: ['task-sitecore-asp'],
 		options: {
 			livereload: true
 		}
 	});
 
-	// Assign our tasks based on production mode
+	// Assign our tasks
+	grunt.registerTask('task-sitecore-asp', 'Synchronizes assets for sitecore.', ['sync:asp']);
 	grunt.registerTask('task-sitecore-css', 'Synchronizes assets for sitecore.', ['sync:sccss']);
 	grunt.registerTask('task-sitecore-js', 'Synchronizes assets for sitecore.', ['sync:scjs']);
 	grunt.registerTask('task-sitecore', 'Synchronizes assets for sitecore.', ['sync:asp', 'sync:scjs', 'sync:sccss']);
