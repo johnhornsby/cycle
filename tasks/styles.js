@@ -24,6 +24,31 @@ function register(grunt) {
 	if (grunt.config.get('config.production') === true)
 		grunt.task.loadNpmTasks('grunt-contrib-cssmin');
 
+	// Are we using icons?
+	var useIcons = grunt.config('config.icon_folder') !== undefined;
+	if (useIcons) {
+		grunt.task.loadNpmTasks('grunt-grunticon');
+
+		// Use a clean script
+		grunt.config('clean.icons', [
+			'.tmp/icons'
+		]);
+
+		grunt.config('grunticon', {
+			icons: {
+				files: [{
+					expand: true,
+		            cwd: '<%= config.icon_folder %>',
+		            src: ['*.svg', '*.png'],
+		            dest: ".tmp/icons"
+				}],
+				options: {
+
+				}
+			}
+		});
+	}
+
 	grunt.config('sass', {
 		styles: {
 			files: [
@@ -64,10 +89,20 @@ function register(grunt) {
 	});
 
 	// Assign our tasks based on production mode
-	var taskList = (grunt.config.get('config.production') === true) ? 
-									['sass:styles', 'cssmin:styles', 'task-sitecore-css'] :
-									['sass:styles', 'task-sitecore-css'];
+	var taskList = [];
 
+	if (useIcons) {
+		taskList.push('clean:icons');
+		taskList.push('grunticon:icons');
+	}
+
+	taskList.push('sass:styles');
+
+	if (grunt.config.get('config.production') === true)
+		taskList.push('cssmin:styles');
+
+	taskList.push('task-sitecore-css');
+	
 	grunt.registerTask('task-styles', 'Preprocess styles for site.', taskList);
 
 	return true;

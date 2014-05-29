@@ -22,10 +22,11 @@ module.exports = {
 	// Folder paths to relevant assets.
 	"css_folder": "assets/css",
 	"js_folder": "assets/js",
-	"scss_folder": "assets/scss",		// Remove me to disable sass
-	"coffee_folder": "assets/coffee",	// Remove me to disable coffeescript
+	"scss_folder": "assets/scss",			// Remove me to disable sass
+	"coffee_folder": "assets/coffee",		// Remove me to disable coffeescript
 	
 	"img_folder": "assets/img",
+	//"icon_folder": "assets/img/icons",	// Automatically adds icons in this folder to the stylesheet
 	
 	// If you want to use ruby sass (albeit slower) for compatibility reasons, then enable this option.
 	"use_rubysass": false,
