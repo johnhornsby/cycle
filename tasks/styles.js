@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'task-styles',
-	dependencies: ['task-watch', 'task-sitecore'],
+	dependencies: ['task-copy', 'task-watch', 'task-sitecore'],
 	register: register,
 	buildTask: true
 };
@@ -38,15 +38,31 @@ function register(grunt) {
 			icons: {
 				files: [{
 					expand: true,
-		            cwd: '<%= config.icon_folder %>',
-		            src: ['*.svg', '*.png'],
-		            dest: ".tmp/icons"
+					cwd: '<%= config.icon_folder %>',
+					src: ['*.svg', '*.png'],
+					dest: ".tmp/icons"
 				}],
 				options: {
 
 				}
 			}
 		});
+
+		// Create scss files also
+		grunt.config('copy.icons', {
+			files: [{ 
+				expand: true, 
+				src: "**/*.css", 
+				dest: ".tmp/icons/", 
+				cwd: ".tmp/icons/", 
+				rename: function(dest, src) {
+					console.log(dest);console.log(src);
+	              return dest + src.substring(0, src.lastIndexOf('.')) + '.scss';
+	            }
+			}]
+		});
+
+		grunt.registerTask('icons', 'Preprocess icons for site.', ['clean:icons', 'grunticon:icons', 'copy:icons']);
 	}
 
 	grunt.config('sass', {
@@ -91,10 +107,8 @@ function register(grunt) {
 	// Assign our tasks based on production mode
 	var taskList = [];
 
-	if (useIcons) {
-		taskList.push('clean:icons');
-		taskList.push('grunticon:icons');
-	}
+	if (useIcons) 
+		taskList.push('icons');
 
 	taskList.push('sass:styles');
 
