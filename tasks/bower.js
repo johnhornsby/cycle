@@ -75,8 +75,12 @@ function register(grunt) {
 		dest: '<%= config.js_folder %>/vendor.js'
 	});
 
+	var taskList = ['clean:bower', 'bower:dist'];
+
 	// Uglify our appfile when production is enabled
 	var useRequire = grunt.config('config.use_requirejs') === true;
+
+	taskList.push('concat:bowerjs');
 
 	if (!useRequire) {
 		grunt.config('uglify.bowerjs', {
@@ -84,6 +88,9 @@ function register(grunt) {
 				'<%= config.js_folder %>/vendor.min.js': '<%= config.js_folder %>/vendor.js'
 			}
 		});
+
+		if (grunt.config.get('config.production') === true)
+			taskList.push('uglify:bowerjs');
 	}
 
 	// Concatenate our temporary stylesheets into our vendor css file
@@ -92,6 +99,8 @@ function register(grunt) {
 		dest: '<%= config.css_folder %>/vendor.css'
 	});
 
+	taskList.push('concat:bowercss');
+
 	// Minify our vendor stylesheets when production is enabled
 	grunt.config('cssmin.bowercss', {
 		files: {
@@ -99,10 +108,8 @@ function register(grunt) {
 		}
 	});
 
-	// Assign our tasks based on production mode
-	var taskList = (grunt.config.get('config.production') === true) ? 
-									['clean:bower', 'bower:dist', 'concat:bowerjs', 'uglify:bowerjs', 'concat:bowercss', 'cssmin:bowercss'] :
-									['clean:bower', 'bower:dist', 'concat:bowerjs', 'concat:bowercss'];
+	if (grunt.config.get('config.production') === true)
+		taskList.push('cssmin:bowercss');
 
 	grunt.registerTask('task-bower', 'Prepare all vendor resources.', taskList);
 
