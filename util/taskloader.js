@@ -45,6 +45,8 @@ module.exports = function (grunt) {
 	});
 
 	if (noTasks) {
+		global.firstBuild = true;
+		
 		taskList = grunt.config('buildTasks');
 		taskList.push('task-watch');
 		taskList.push('task-waitexit');

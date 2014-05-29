@@ -26,7 +26,7 @@ function register(grunt) {
 
 	// Are we using icons?
 	var useIcons = grunt.config('config.icon_folder') !== undefined;
-	if (useIcons) {
+	if (useIcons && global.firstBuild) {
 		grunt.task.loadNpmTasks('grunt-grunticon');
 
 		// Use a clean script
@@ -48,6 +48,19 @@ function register(grunt) {
 			}
 		});
 
+		// Implement proper IE8 fallback
+		grunt.loadNpmTasks('grunt-text-replace');
+		grunt.config('replace', {
+			icons: {
+				src: ['.tmp/icons/*.svg.css'], 
+				dest: '.tmp/icons/',
+				replacements: [{
+					from: "-image: url",
+					to: ": rgba(255, 255, 255, 0) url"
+				}]
+			}
+		});
+
 		// Create scss files also
 		grunt.config('copy.icons', {
 			files: [{ 
@@ -62,7 +75,7 @@ function register(grunt) {
 			}]
 		});
 
-		grunt.registerTask('icons', 'Preprocess icons for site.', ['clean:icons', 'grunticon:icons', 'copy:icons']);
+		grunt.registerTask('icons', 'Preprocess icons for site.', ['clean:icons', 'grunticon:icons', 'replace:icons', 'copy:icons']);
 	}
 
 	grunt.config('sass', {
@@ -107,7 +120,7 @@ function register(grunt) {
 	// Assign our tasks based on production mode
 	var taskList = [];
 
-	if (useIcons) 
+	if (useIcons && global.firstBuild) 
 		taskList.push('icons');
 
 	taskList.push('sass:styles');

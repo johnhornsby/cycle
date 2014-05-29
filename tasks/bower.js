@@ -76,11 +76,15 @@ function register(grunt) {
 	});
 
 	// Uglify our appfile when production is enabled
-	grunt.config('uglify.bowerjs', {
-		files: {
-			'<%= config.js_folder %>/vendor.min.js': '<%= config.js_folder %>/vendor.js'
-		}
-	});
+	var useRequire = grunt.config('config.use_requirejs') === true;
+
+	if (!useRequire) {
+		grunt.config('uglify.bowerjs', {
+			files: {
+				'<%= config.js_folder %>/vendor.min.js': '<%= config.js_folder %>/vendor.js'
+			}
+		});
+	}
 
 	// Concatenate our temporary stylesheets into our vendor css file
 	grunt.config('concat.bowercss', {
