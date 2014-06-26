@@ -19,7 +19,7 @@ var cwd = process.cwd();
 global.cyclecwd = cwd;
 
 // Locate our cycle grunt folder
-var cycleFolder = path.join(process.argv[1], '../../');
+var cycleFolder = path.join(__dirname, '../');
 global.cycleFolder = cycleFolder;
 
 process.chdir(cycleFolder);

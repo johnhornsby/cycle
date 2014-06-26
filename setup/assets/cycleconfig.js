@@ -32,7 +32,7 @@ module.exports = {
 	"use_rubysass": false,
 
 	// Are we using requirejs to build our js output?
-	"use_requirejs": true, 
+	"use_requirejs": false, 
 
 	// The name of the concatenated app file to generate. 
 	//'app' will generate app.js and app.min.js in production.
@@ -40,7 +40,7 @@ module.exports = {
 	
 	// If you want additional javascript added to your single app file, specify your scripts folder location.
 	// Don't make this the same as your js_folder as that's just for output, not working code.
-	"javascript_appfolder": "assets/scripts",
+	//"javascript_appfolder": "assets/scripts",
 
 	// The path to the sitecore project for syncing changes.
 	// If this is removed then no syncing will be performed.
