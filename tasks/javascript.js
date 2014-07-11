@@ -115,7 +115,7 @@ function register(grunt) {
 		// Concatenate our temporary javascript files into a temporary js file
 		grunt.config('concat.js', {
 			src: '<%= config.javascript_appfolder %>/**/*.js',
-			dest: '.tmp/js/tmp.js'
+			dest: '.tmp/js/_tmp.js'
 		});
 
 		// Keep an eye on our javascript folder
