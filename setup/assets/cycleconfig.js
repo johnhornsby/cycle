@@ -54,6 +54,9 @@ module.exports = {
 	// Your bower.json must be present in your project root (the directory you run cycle from).
 	"bower_enabled": true,
 
+	// Automatically merge bower css into the top of our own css file
+	"bower_merge_css": "style.css",
+
 	// Use this to override cycle if it isn't copying the particular 
 	// bower components that you require.
 	"bower_files": {

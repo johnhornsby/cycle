@@ -80,9 +80,9 @@ function register(grunt) {
 	// Uglify our appfile when production is enabled
 	var useRequire = grunt.config('config.use_requirejs') === true;
 
-	taskList.push('concat:bowerjs');
-
 	if (!useRequire) {
+		taskList.push('concat:bowerjs');
+
 		grunt.config('uglify.bowerjs', {
 			files: {
 				'<%= config.js_folder %>/vendor.min.js': '<%= config.js_folder %>/vendor.js'
@@ -101,15 +101,45 @@ function register(grunt) {
 
 	taskList.push('concat:bowercss');
 
-	// Minify our vendor stylesheets when production is enabled
-	grunt.config('cssmin.bowercss', {
-		files: {
-			'<%= config.css_folder %>/vendor.min.css': '<%= config.css_folder %>/vendor.css'
-		}
-	});
+	// Merge and/or minify our css
+	var mergeCss = grunt.config('config.bower_merge_css');
+	
+	if (mergeCss !== undefined) {
+		// Merge our css
+		grunt.config('concat.mergecss', {
+			src: ['<%= config.css_folder %>/vendor.css', '<%= config.css_folder %>/<%= config.bower_merge_css %>'],
+			dest: '<%= config.css_folder %>/<%= config.bower_merge_css %>'
+		});
 
-	if (grunt.config.get('config.production') === true)
-		taskList.push('cssmin:bowercss');
+		taskList.push('concat:mergecss');
+
+		if (grunt.config.get('config.production') === true) {
+			grunt.config('cssmin.bowercss', {
+				files: [
+					{
+						expand: true,
+						cwd: '<%= config.css_folder %>',
+						src: '<%= config.bower_merge_css %>',
+						dest: '<%= config.css_folder %>',
+						ext: '.min.css'
+					}
+				]
+			});
+
+			taskList.push('cssmin:bowercss');
+		}
+	}
+	else {
+		// Minify our vendor stylesheets when production is enabled
+		grunt.config('cssmin.bowercss', {
+			files: {
+				'<%= config.css_folder %>/vendor.min.css': '<%= config.css_folder %>/vendor.css'
+			}
+		});
+
+		if (grunt.config.get('config.production') === true)
+			taskList.push('cssmin:bowercss');
+	}
 
 	grunt.registerTask('task-bower', 'Prepare all vendor resources.', taskList);
 
