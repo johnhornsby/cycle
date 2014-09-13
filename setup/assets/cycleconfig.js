@@ -34,6 +34,9 @@ module.exports = {
 	// Are we using requirejs to build our js output?
 	"use_requirejs": false, 
 
+	// Should we generate a source map through our requirejs compilation?
+	"generate_require_sourcemap": false,
+
 	// The name of the concatenated app file to generate. 
 	//'app' will generate app.js and app.min.js in production.
 	"script_appfile": "app",

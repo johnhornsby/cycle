@@ -72,9 +72,10 @@ function register(grunt) {
 			compile: {
 				options: {
 					name: 'main',
-	                baseUrl: '.tmp/js',
-	                out: '<%= config.js_folder %>/<%= config.script_appfile %>.js',
-	                optimize: 'none'
+					baseUrl: '.tmp/js',
+					out: '<%= config.js_folder %>/<%= config.script_appfile %>.js',
+					optimize: 'none',
+					generateSourceMaps: grunt.config('config.generate_require_sourcemap') === true
 				}
 			}
 		});
@@ -190,18 +191,18 @@ function verifyConfig(grunt) {
 }
 
 function walk(basedir, dir) {
-    var results = [];
-    var list = fs.readdirSync(dir);
+	var results = [];
+	var list = fs.readdirSync(dir);
 
-    list.forEach(function(file) {
-        file = dir + '/' + file;
-        var stat = fs.statSync(file);
+	list.forEach(function(file) {
+		file = dir + '/' + file;
+		var stat = fs.statSync(file);
 
-        if (stat && stat.isDirectory()) 
-        	results = results.concat(walk(basedir, file));
-        else 
-        	results.push(path.relative(basedir, file));
-    });
+		if (stat && stat.isDirectory()) 
+			results = results.concat(walk(basedir, file));
+		else 
+			results.push(path.relative(basedir, file));
+	});
 
-    return results;
+	return results;
 }
