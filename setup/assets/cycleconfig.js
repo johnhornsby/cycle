@@ -1,4 +1,7 @@
 module.exports = {
+	// Execute production tasks (javascript, styles, prototyping) in parallel. Experimental.
+	"parallel": false,
+	
 	// When production is disabled minification isn't performed.
 	"production": true,
 

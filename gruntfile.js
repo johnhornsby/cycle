@@ -39,8 +39,18 @@ module.exports = function(grunt) {
 	// Load some npm tasks
 	grunt.task.loadNpmTasks('grunt-contrib-clean');
 
+	// Use parallel build?
+	var useParallel = grunt.config('config.parallel');
+
+	if (useParallel === true) {
+		var concurrent = require('./util/concurrent');
+		concurrent(grunt, grunt.config('buildTasks'));
+	}
+	else {
+		grunt.registerTask('buildTasks', grunt.config('buildTasks'));
+	}
+
 	// Register our build and watch tasks
-	grunt.registerTask('buildTasks', grunt.config('buildTasks'));
 	grunt.registerTask('build', ['clean:temp', 'buildTasks', 'task-watch']);
 	grunt.registerTask('default', ['build', 'task-waitexit']);
 
