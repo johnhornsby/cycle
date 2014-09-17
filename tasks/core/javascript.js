@@ -4,7 +4,7 @@ var fs = require('fs'),
 
 module.exports = {
 	name: 'task-javascript',
-	dependencies: ['task-copy', 'task-concat', 'task-uglify', 'task-watch', 'task-sitecore'],
+	dependencies: ['task-copy', 'task-concat', 'task-uglify', 'task-watch', 'task-sitecore', 'task-bower'],
 	register: register,
 	buildTask: true
 };

@@ -48,6 +48,10 @@ module.exports = function (grunt) {
 		global.firstBuild = true;
 		
 		taskList = grunt.config('buildTasks');
+
+		// TODO: Resolve build dependencies properly!
+		taskList = ['task-styles', 'task-bower', 'task-javascript', 'task-sitecore', 'task-prototype'];
+
 		taskList.push('task-watch');
 		taskList.push('task-waitexit');
 	}
@@ -80,22 +84,32 @@ module.exports = function (grunt) {
 	console.log("[" + "cycle".green + "] " + taskStr);
 
 	// Finally, load each of our tasks
+	var buildTasks = [];
+
 	resolvedTasks.forEach(function (task) {
 		try {
 			// Load it!
 			var success = task.obj.register(grunt);
 
-			// Remove as a build task if appropriate
-			if (!success && task.obj.buildTask) {
-				var tasks = grunt.config('buildTasks');
-				tasks.splice(tasks.indexOf(task.name), 1);
-				grunt.config('buildTasks', tasks);
+			// Handle build tasks
+			if (task.obj.buildTask) {
+				if (!success) {
+					var tasks = grunt.config('buildTasks');
+					tasks.splice(tasks.indexOf(task.name), 1);
+					grunt.config('buildTasks', tasks);
+				}
+				else {
+					buildTasks.push(task.name);
+				}
 			}
+			
 		} catch (e) {
 			// Something went wrong.
 			grunt.fail.fatal('Unable to register task "' + task.name + '".');
 		}
 	});
+
+	grunt.config('buildTasks', buildTasks);
 };
 
 function addBuildTask(grunt, name) {

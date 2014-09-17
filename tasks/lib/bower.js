@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'task-bower',
-	dependencies: ['task-concat', 'task-uglify', 'task-watch'],
+	dependencies: ['task-concat', 'task-uglify', 'task-watch', 'task-styles'],
 	register: register,
 	buildTask: true
 };
