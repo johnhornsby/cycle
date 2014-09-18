@@ -13,6 +13,8 @@ function register(grunt) {
 		return false;
 	}
 
+	defineBowerCSS(grunt);
+
 	// Only load our bower module if we're running with no arguments (first load), or
 	// if our watch script has triggered a task-bower run. This is because loading
 	// bower through grunt is pretty heavy on load times.
@@ -101,7 +103,14 @@ function register(grunt) {
 
 	taskList.push('concat:bowercss');
 
+	grunt.registerTask('task-bower', 'Prepare all vendor resources.', taskList);
+
+	return true;
+};
+
+function defineBowerCSS(grunt) {
 	// Merge and/or minify our css
+	var taskList = [];
 	var mergeCss = grunt.config('config.bower_merge_css');
 	
 	if (mergeCss !== undefined) {
@@ -141,10 +150,8 @@ function register(grunt) {
 			taskList.push('cssmin:bowercss');
 	}
 
-	grunt.registerTask('task-bower', 'Prepare all vendor resources.', taskList);
-
-	return true;
-};
+	grunt.registerTask('task-bower-css', 'Post-prepare bower css.', taskList);
+}
 
 function verifyConfig(grunt) {
 	var bowerEnabled = grunt.config('config.bower_enabled');
