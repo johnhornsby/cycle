@@ -48,10 +48,7 @@ module.exports = function (grunt) {
 		global.firstBuild = true;
 		
 		taskList = grunt.config('buildTasks');
-
-		// TODO: Resolve build dependencies properly!
-		taskList = ['task-styles', 'task-bower', 'task-javascript', 'task-sitecore', 'task-prototype'];
-
+		
 		taskList.push('task-watch');
 		taskList.push('task-waitexit');
 	}

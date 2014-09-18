@@ -1,6 +1,6 @@
 module.exports = {
-	name: 'task-bower',
-	dependencies: ['task-concat', 'task-uglify', 'task-watch'],
+	name: 'task-bower-css',
+	dependencies: ['task-concat', 'task-styles'],
 	register: register,
 	buildTask: true
 };
@@ -21,87 +21,8 @@ function register(grunt) {
 		return false;
 	}
 
-	grunt.config('bower', {	
-		dist: {
-			dest: '.tmp/bower',
-			options: {
-				expand: true,
-				packageSpecific: grunt.config('config.bower_files')
-			}
-		},
-	});
-
-	// Load our required npm tasks
-	grunt.task.loadNpmTasks('grunt-contrib-cssmin');
-
-	var cwd = process.cwd();		// Trick bower into thinking it's in the project folder during setup
-	var tasks = require('path').resolve('node_modules/grunt-bower/tasks');
-	process.chdir(global.cyclecwd);
-
-	grunt.loadTasks(tasks);
-
-	process.chdir(cwd);
-
-	// Use a clean script
-	grunt.config('clean.bower', [
-		'.tmp/bower',
-		'<%= config.js_folder %>/vendor.js',
-		'<%= config.js_folder %>/vendor.min.js',
-		'<%= config.css_folder %>/vendor.css',
-		'<%= config.css_folder %>/vendor.min.css'
-	]);
-
-	// Keep an eye on our bower script
-	grunt.config('watch.bower', {
-		files: ['bower.json'],
-		tasks: ['task-bower', 'notify:watch'],
-		options: {
-			livereload: true
-		}
-	});
-
-	// Concatenate our temporary javascript files into our vendor js file
-	var priorities = grunt.config('config.bower_priorities');
-	var srcFiles = [];
-
-	priorities.forEach(function (val) {
-		srcFiles.push('.tmp/bower/' + val);
-	});
-
-	srcFiles.push('.tmp/bower/**/*.js');
-
-	grunt.config('concat.bowerjs', {
-		src: srcFiles,
-		dest: '<%= config.js_folder %>/vendor.js'
-	});
-
-	var taskList = ['clean:bower', 'bower:dist'];
-
-	// Uglify our appfile when production is enabled
-	var useRequire = grunt.config('config.use_requirejs') === true;
-
-	if (!useRequire) {
-		taskList.push('concat:bowerjs');
-
-		grunt.config('uglify.bowerjs', {
-			files: {
-				'<%= config.js_folder %>/vendor.min.js': '<%= config.js_folder %>/vendor.js'
-			}
-		});
-
-		if (grunt.config.get('config.production') === true)
-			taskList.push('uglify:bowerjs');
-	}
-
-	// Concatenate our temporary stylesheets into our vendor css file
-	grunt.config('concat.bowercss', {
-		src: '.tmp/bower/**/*.css',
-		dest: '<%= config.css_folder %>/vendor.css'
-	});
-
-	taskList.push('concat:bowercss');
-
 	// Merge and/or minify our css
+	var taskList = [];
 	var mergeCss = grunt.config('config.bower_merge_css');
 	
 	if (mergeCss !== undefined) {
@@ -141,7 +62,7 @@ function register(grunt) {
 			taskList.push('cssmin:bowercss');
 	}
 
-	grunt.registerTask('task-bower', 'Prepare all vendor resources.', taskList);
+	grunt.registerTask('task-bower-css', 'Post-prepare bower css.', taskList);
 
 	return true;
 };
