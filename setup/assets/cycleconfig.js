@@ -30,6 +30,13 @@ module.exports = {
 	
 	"img_folder": "assets/img",
 	//"icon_folder": "assets/img/icons",	// Automatically adds icons in this folder to the stylesheet
+
+	// To autoprefix, provide autoprefixer options or comment out to disable.
+	"autoprefixer": {
+		"options": {
+			"browsers": ['last 10 versions', 'ie 8', 'ie 9']
+		},
+	},
 	
 	// If you want to use ruby sass (albeit slower) for compatibility reasons, then enable this option.
 	"use_rubysass": false,

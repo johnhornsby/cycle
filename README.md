@@ -13,6 +13,7 @@ Sequence build automation.
     + *Bower* - Any [Bower](http://bower.io/) components installed are automatically found and merged into vendor.css and vendor.js files for easy addition. [Bower](http://bower.io/) is also watched so that installing any additional components will also update the browser.
     + *Extensible* - Any other automation features are easily added without interfering with existing features, or breaking backwards-compatibility with older cycle projects.
     + *Sitecore* - If aspx and ascx files are modified, the changes are synced with the live site and the browser is refreshed immediately. All js and css assets are also constantly synced with the sitecore folder.
+    + *Autoprefixer* - Optionally use Autoprefixer to vendor-prefix your CSS properties using the Can I Use database. 
     + *TFS* - Any files modified that are protected under TFS control will be automatically checked out for editing.
 
 
@@ -26,6 +27,9 @@ Sequence build automation.
     + *Maintainable* - Having cycle as a global app means easy updates and no disparity between versions.
     + *Scaffold* - Cycle can generate a simple boilerplate file structure for easily starting new projects.
     + *Notifications* - If you are on a mac, or have [Growl](http://www.growlforwindows.com/gfw/) installed on windows, cycle gives popup notifications informing you of errors or successful builds.
+
++ **Tasks**
+    + *Export Static* - Generate a static site `cycle task-export` 
 
 + **More features to come!**
 
