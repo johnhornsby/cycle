@@ -31,7 +31,7 @@ function register(grunt) {
 				{expand: true, cwd: '.tmp/bower', src: '**/*.js', dest: '.tmp/js'}
 			]
 		});
-
+	
 		// Define a task to determine which require libraries to load
 		grunt.registerTask('task-javascript-rjs', 'Handles requirejs includes.', function () {
 			var files = walk('.tmp/js', '.tmp/js');
@@ -64,6 +64,7 @@ function register(grunt) {
 				});
 			}
 
+			console.log(includes);
 			grunt.config('requirejs.compile.options.include', includes);
 		});
 
@@ -113,11 +114,23 @@ function register(grunt) {
 	}
 
 	if (jsAppfolder) {
-		// Concatenate our temporary javascript files into a temporary js file
-		grunt.config('concat.js', {
-			src: '<%= config.javascript_appfolder %>/**/*.js',
-			dest: '.tmp/js/_tmp.js'
-		});
+		var useAMD = grunt.config('config.javascript_use_amd');
+
+		if (useAMD && useRequire) {
+			// Copy javascript files to the root
+			grunt.config('concat.js', {
+				files: [
+					{expand: true, cwd: '<%= config.javascript_appfolder %>', src: '**/*.js', dest: '.tmp/js'}
+				]
+			});
+		}
+		else {
+			// Concatenate our temporary javascript files into a temporary js file
+			grunt.config('concat.js', {
+				src: '<%= config.javascript_appfolder %>/**/*.js',
+				dest: '.tmp/js/_tmp.js'
+			});
+		}
 
 		// Keep an eye on our javascript folder
 		grunt.config('watch.js', {

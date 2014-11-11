@@ -55,6 +55,9 @@ module.exports = {
 	// Don't make this the same as your js_folder as that's just for output, not working code.
 	//"javascript_appfolder": "assets/scripts",
 
+	// Use AMD includes for additional javascript scripts? Alternatively just appends the scripts as a _tmp.js file.
+	//"javascript_use_amd": false,
+
 	// The path to the sitecore project for syncing changes.
 	// If this is removed then no syncing will be performed.
 	"sitecore_path" : "C:/Sitecore/HelloWorld/Website",
