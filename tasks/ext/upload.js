@@ -14,6 +14,12 @@ function register(grunt) {
     options: {
       questions: [
         {
+          config: 'location',
+          type: 'list',
+          message: 'Where would you like to upload to?',
+          choices: ["Pitch", "Wireframes"]
+        },
+        {
           config: 'os',
           type: 'list',
           message: 'Which Operating System are you using?',
@@ -28,12 +34,20 @@ function register(grunt) {
       then: function(results, done) {
         var uploadDir = results.upload;
         var filePath = "";
+        var uploadLocation = "";
+
+        // Set the drive to upload to
+        if (results.location === "Pitch") {
+          uploadLocation = "pitch";
+        } else {
+          uploadLocation = "wireframes";
+        }
 
         // Set the OS to create correct filepath
         if (results.os === "Windows") {
-          filePath = "\\\\od1sharews058\\pitch\\";
+          filePath = "\\\\od1sharews058\\" + uploadLocation + "\\";
         } else {
-          filePath = '/Volumes/pitch/';
+          filePath = '/Volumes/' + uploadLocation + '/';
         }
 
         // Return false if the directory already exists
@@ -48,7 +62,7 @@ function register(grunt) {
             { 
               expand: true,
               cwd: 'export',
-              src: '*',
+              src: '**',
               dest: filePath + uploadDir,
               flatten: false
             }
@@ -66,6 +80,7 @@ function register(grunt) {
   grunt.registerTask('task-upload', 'Uploads static to pitch viewer', 
     [
       'prompt:createDirectory',
+      'task-export',
       'copy:uploadStatic'
   ]);
 
