@@ -106,8 +106,8 @@ function register(grunt) {
   grunt.registerTask('task-upload', 'Uploads static to pitch viewer', 
     [
       'prompt:createDirectory',
-      // 'task-export',
-      // 'copy:uploadStatic'
+      'task-export',
+      'copy:uploadStatic'
   ]);
 
   return true;
