@@ -25,6 +25,9 @@ function register(grunt) {
           message: 'Type the drive path you wish to upload to, e.g. /Volumes/pitch-1/',
           when: function(answers) {
             return answers['location'] === 'Custom'
+          },
+          validate: function(value) {
+            return fs.existsSync(value) || 'Please enter a valid drive name'
           }
         },
         {
@@ -50,7 +53,13 @@ function register(grunt) {
         // Set the drive to upload to
         if (results.customLocation) {
           // Use a custom drive path if specified
-          filePath = results.customLocation
+          filePath = results.customLocation;
+
+          // Check for trailing slash
+          if (filePath.slice(-1) != "/") {
+            filePath += "/";
+          }
+
         } else {
           // Else use the predefined drives
           if (results.location === "Pitch") {
@@ -65,6 +74,7 @@ function register(grunt) {
             filePath = '/Volumes/' + uploadLocation + '/';
           }
         }
+
         
         // Return false if the directory already exists
         if (fs.existsSync(filePath + results.upload)) {
@@ -96,8 +106,8 @@ function register(grunt) {
   grunt.registerTask('task-upload', 'Uploads static to pitch viewer', 
     [
       'prompt:createDirectory',
-      'task-export',
-      'copy:uploadStatic'
+      // 'task-export',
+      // 'copy:uploadStatic'
   ]);
 
   return true;
