@@ -17,13 +17,24 @@ function register(grunt) {
           config: 'location',
           type: 'list',
           message: 'Where would you like to upload to?',
-          choices: ["Pitch", "Wireframes"]
+          choices: ["Pitch", "Wireframes", "Custom"]
+        },
+        {
+          config: 'customLocation',
+          type: 'input',
+          message: 'Type the drive path you wish to upload to, e.g. /Volumes/pitch-1/',
+          when: function(answers) {
+            return answers['location'] === 'Custom'
+          }
         },
         {
           config: 'os',
           type: 'list',
           message: 'Which Operating System are you using?',
-          choices: ["MacOS", "Windows"]
+          choices: ["MacOS", "Windows"],
+          when: function(answers) {
+            return answers['location'] != 'Custom'
+          }
         },
         {
           config: 'upload',
@@ -37,19 +48,24 @@ function register(grunt) {
         var uploadLocation = "";
 
         // Set the drive to upload to
-        if (results.location === "Pitch") {
-          uploadLocation = "pitch";
+        if (results.customLocation) {
+          // Use a custom drive path if specified
+          filePath = results.customLocation
         } else {
-          uploadLocation = "wireframes";
+          // Else use the predefined drives
+          if (results.location === "Pitch") {
+            uploadLocation = "pitch";
+          } else {
+            uploadLocation = "wireframes";
+          }
+          // Set the OS to create correct filepath
+          if (results.os === "Windows") {
+            filePath = "\\\\od1sharews058\\" + uploadLocation + "\\";
+          } else {
+            filePath = '/Volumes/' + uploadLocation + '/';
+          }
         }
-
-        // Set the OS to create correct filepath
-        if (results.os === "Windows") {
-          filePath = "\\\\od1sharews058\\" + uploadLocation + "\\";
-        } else {
-          filePath = '/Volumes/' + uploadLocation + '/';
-        }
-
+        
         // Return false if the directory already exists
         if (fs.existsSync(filePath + results.upload)) {
           grunt.warn('Directory already exists, please choose a new directory');
