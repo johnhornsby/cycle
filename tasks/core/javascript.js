@@ -46,7 +46,7 @@ function register(grunt) {
 					return;
 
 				var module = path.dirname(file) + '/' + path.basename(file, '.js');
-				includes.push(module);
+				includes.push(module.replace(/\\/g, "/"));
 			});
 
 			// Sort by bower priorities
@@ -63,6 +63,8 @@ function register(grunt) {
 					return 0;
 				});
 			}
+
+			console.log(includes);
 
 			grunt.config('requirejs.compile.options.include', includes);
 		});
