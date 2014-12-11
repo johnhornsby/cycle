@@ -6,7 +6,9 @@
     "type": "git",
     "url": "https://github.com/aaerox/cycle.git"
   },
-  "author": "Jon Daly",
+  "author": {
+    "name": "Jon Daly"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/aaerox/cycle/issues"
@@ -41,11 +43,18 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-grunticon": "^1.2.5",
     "grunt-notify": "^0.2.20",
+    "grunt-nuget": "^0.1.4",
     "grunt-prompt": "^1.3.0",
     "grunt-sass": "^0.12.1",
     "grunt-sync": "0.0.7",
     "grunt-text-replace": "^0.3.11",
     "ncp": "^0.5.0",
     "node-sass": "0.8.4"
-  }
+  },
+  "readme": "# cycle\n\nSequence build automation.\n\n## Features\n\n+ **Automation**\n    + *Coffeescript* - [Coffeescript](http://coffeescript.org/) is compiled and concatenated into a single app.js file, and minified as necessary.\n    + *Sass* - [Sass](http://sass-lang.com/) files are also compiled and concatenated into individual .css files, allowing multiple 'main' stylesheets.\n    + *Prototyping* - When working on the initial static build, cycle will serve up html files on a local webserver.\n    + *Templating* - While prototyping, [multiple template engines](https://github.com/visionmedia/consolidate.js/#supported-template-engines) can be selected which will be automatically processed, served to the browser and also watched for changes.\n    + *Livereload* - All asset files, including static html, are watched for changes and will instantly update in the browser.\n    + *Bower* - Any [Bower](http://bower.io/) components installed are automatically found and merged into vendor.css and vendor.js files for easy addition. [Bower](http://bower.io/) is also watched so that installing any additional components will also update the browser.\n    + *Extensible* - Any other automation features are easily added without interfering with existing features, or breaking backwards-compatibility with older cycle projects.\n    + *Sitecore* - If aspx and ascx files are modified, the changes are synced with the live site and the browser is refreshed immediately. All js and css assets are also constantly synced with the sitecore folder.\n    + *Autoprefixer* - Optionally use Autoprefixer to vendor-prefix your CSS properties using the Can I Use database. \n    + *TFS* - Any files modified that are protected under TFS control will be automatically checked out for editing.\n\n\n+ **Configuration**\n    + *Highly configurable* - Cycle is designed to be able to adapt to any project through it's configuration. All automation features are configurable, and other options for this are easily added.\n    + *Modular* - Modules that aren't being used ([Bower](http://bower.io/), [Sass](http://sass-lang.com/), etc) aren't even loaded if they aren't necessary, speeding up load and watch times.\n    + *Extensive error checking* - The configuration is parsed and checked extensively, giving a verbose error if anything is misconfigured.\n\n+ **Setup**\n    + *Easy* - Cycle is configured as a global module and only needs to be installed once on a machine.\n    + *Maintainable* - Having cycle as a global app means easy updates and no disparity between versions.\n    + *Scaffold* - Cycle can generate a simple boilerplate file structure for easily starting new projects.\n    + *Notifications* - If you are on a mac, or have [Growl](http://www.growlforwindows.com/gfw/) installed on windows, cycle gives popup notifications informing you of errors or successful builds.\n\n+ **Tasks**\n    + *Export Static* - Generate a static site `cycle task-export`\n    + *Upload* - Upload a generated static site `cycle task-upload`\n\n+ **More features to come!**\n\n## Usage\n\nInstall cycle globally `npm install git://github.com/aaerox/cycle.git -g`\n\nCreate a new folder to setup a project\n`mkdir project`\n`cd project`\n\nCreate a scaffold project `cycle setup`\n\nInitialize bower modules `bower install`\n\nBuild your project `cycle`\n\nModify your **cycleconfig.js** file in the **assets** folder to configure cycle.\n",
+  "readmeFilename": "README.md",
+  "_id": "cycle@0.1.0",
+  "_shasum": "dcff3e6b8312986ba132527debbee6a878500af0",
+  "_resolved": "git://github.com/aaerox/cycle.git#6a6aaf638324fde055d597d6c68271efab7da7b8",
+  "_from": "git://github.com/aaerox/cycle.git"
 }

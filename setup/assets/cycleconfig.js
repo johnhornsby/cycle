@@ -81,8 +81,24 @@ module.exports = {
 		}*/
 	},
 
-	// Use this to specific bower components which should be included before anything else.
+	// Use this to specifiy bower components which should be included before anything else.
 	"bower_priorities": [
 		"jquery.js"
-	]
+	],
+
+	// Nuget deployment configuration
+	"nuget": {
+
+		"build": {
+			"src": "*.nuspec",
+			"dest": "nuget/"
+		},
+
+		"push": {
+			"src": "nuget/*.nupkg",
+			
+			"server": "http://nugetserver.com",
+			"apiKey": "12345678"
+		}
+	}
 };

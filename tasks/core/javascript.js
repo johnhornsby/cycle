@@ -64,6 +64,8 @@ function register(grunt) {
 				});
 			}
 
+			console.log(includes);
+
 			grunt.config('requirejs.compile.options.include', includes);
 		});
 
