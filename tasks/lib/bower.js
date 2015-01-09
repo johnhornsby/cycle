@@ -10,6 +10,7 @@ function register(grunt) {
 	// Validate our configuration
 	if (!verifyConfig(grunt)) {
 		grunt.registerTask('task-bower', 'Disabled.', []);
+		grunt.registerTask('task-bower-css', 'Disabled.', []);
 		return false;
 	}
 
