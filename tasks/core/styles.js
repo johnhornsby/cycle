@@ -129,6 +129,7 @@ function register(grunt) {
 		taskList.push('cssmin:styles');
 
 	taskList.push('task-sitecore-css');
+	taskList.push('task-bower-css');
 	
 	grunt.registerTask('task-styles', 'Preprocess styles for site.', taskList);
 
