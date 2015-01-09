@@ -15,14 +15,30 @@ function register(grunt) {
 
 	// Load our required npm tasks
 	var useRuby = grunt.config('config.use_rubysass');
+	var useLint = grunt.config('config.scss_lint_config') !== undefined;
 
 	if (useRuby)
 		grunt.task.loadNpmTasks('grunt-contrib-sass');
 	else
 		grunt.task.loadNpmTasks('grunt-sass');
 
+	if (useLint)
+		grunt.task.loadNpmTasks('grunt-scss-lint');
+
 	if (grunt.config.get('config.production') === true)
 		grunt.task.loadNpmTasks('grunt-contrib-cssmin');
+
+	// Perform the linting?
+	if (useLint) {
+		grunt.config('scsslint', {
+			allFiles: [
+				'<%= config.scss_folder %>/**/*.scss'
+			],
+			options: {
+				config: '<%= config.scss_lint_config %>'
+			}
+		});
+	}
 
 	// Are we using icons?
 	var useIcons = grunt.config('config.icon_folder') !== undefined;
@@ -119,6 +135,9 @@ function register(grunt) {
 
 	// Assign our tasks based on production mode
 	var taskList = [];
+
+	if (useLint)
+		taskList.push('scsslint');
 
 	if (useIcons && global.firstBuild) 
 		taskList.push('icons');
