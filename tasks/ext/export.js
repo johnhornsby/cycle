@@ -31,6 +31,7 @@ function register(grunt) {
 
   grunt.config('copy.exportImg', {
     files: [
+      { expand: true, cwd: "", src: 'favicon.ico', dest: 'export/' },
       { expand: true, cwd: '<%= config.img_folder %>', src: '**/*', dest: 'export/assets/img' }
     ]
   });
