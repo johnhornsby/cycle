@@ -9,6 +9,13 @@ module.exports = {
 
 function register(grunt) {
 
+  // Clean the .tmp folder
+  grunt.config('clean.export', [
+    '.tmp/html',
+    '.tmp/js',
+    'export/'
+  ]);
+
   // Copy each of our assets folders to new export directory
   grunt.config('copy.exportCss', {
     files: [
