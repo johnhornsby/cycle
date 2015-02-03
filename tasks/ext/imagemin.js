@@ -17,27 +17,18 @@ function register(grunt) {
 	// Load our required npm tasks
 	grunt.task.loadNpmTasks('grunt-contrib-imagemin');
 
-	// Set autoprefixer options
+	// Set imagemin options
 	grunt.config('imagemin', {
-		png: {
-			options: {
-			optimizationLevel: 7
-			},
-			dynamic: {                         // Another target
-	      files: [{
-	        expand: true,                  // Enable dynamic expansion
-	        cwd: 'assets/img',                   // Src matches are relative to this path
-	        src: ['**/*.{png,jpg,gif}'],   // Actual patterns to match
-	        dest: 'assets/img/opt'                  // Destination path prefix
-	      }]
-	    }
-	  }
+		options: grunt.config('config.imageMin.options'),
+		dynamic: {
+			files: [{
+				expand: true,
+				cwd: '<%= config.img_folder %>',
+				src: ['**/*.{png,jpg,gif}'],
+				dest: '<%= config.img_folder %>'
+			}]
+		}
 	});
-
-	
-
-	
-	
 
 	// Register task
 	grunt.registerTask('task-imagemin', 'Run image optimisation', ['imagemin']);

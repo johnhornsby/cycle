@@ -38,6 +38,14 @@ module.exports = {
 		},
 	},
 
+	// To optimize images run the cycle task-imagemin command, comment out to disable
+	"imageMin": {
+		"options": {
+			optimizationLevel: 7,
+			progressive: true
+		}
+	},
+
 	// To use SCSS lint, specific the config location here
 	//"scss_lint_config": ".scss-lint.yml",
 	

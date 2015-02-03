@@ -31,6 +31,7 @@ Sequence build automation.
 + **Tasks**
     + *Export Static* - Generate a static site `cycle task-export`
     + *Upload* - Upload a generated static site `cycle task-upload`
+    + *Image Optimisation* - Optimise any images in the project `cycle task-imagemin`
 
 + **More features to come!**
 
