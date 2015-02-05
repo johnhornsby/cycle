@@ -72,7 +72,7 @@ function register(grunt) {
 
 		if (paths != undefined) {
 			for (name in paths) {
-				paths[name] = paths[name];
+				paths[name] = '../../' + paths[name];
 			}
 		}
 
