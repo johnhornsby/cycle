@@ -60,7 +60,6 @@ module.exports = {
 
 	// Custom RequireJS path definitions
 	"require_paths": {
-		'async': 'requirejs-plugins/requirejs-plugins'
 	},
 	
 	// The name of the concatenated app file to generate. 
