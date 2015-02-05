@@ -64,10 +64,17 @@ function register(grunt) {
 				});
 			}
 
-			console.log(includes);
-
 			grunt.config('requirejs.compile.options.include', includes);
 		});
+
+		// Normalize the paths
+		var paths = grunt.config('config.require_paths');
+
+		if (paths != undefined) {
+			for (name in paths) {
+				paths[name] = paths[name];
+			}
+		}
 
 		// Define our requirejs config
 		grunt.config('requirejs', {
@@ -77,7 +84,8 @@ function register(grunt) {
 					baseUrl: '.tmp/js',
 					out: '<%= config.js_folder %>/<%= config.script_appfile %>.js',
 					optimize: 'none',
-					generateSourceMaps: grunt.config('config.generate_require_sourcemap') === true
+					generateSourceMaps: grunt.config('config.generate_require_sourcemap') === true,
+					paths: paths
 				}
 			}
 		});

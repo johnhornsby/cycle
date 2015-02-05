@@ -58,6 +58,11 @@ module.exports = {
 	// Should we generate a source map through our requirejs compilation?
 	"generate_require_sourcemap": false,
 
+	// Custom RequireJS path definitions
+	"require_paths": {
+		'async': 'requirejs-plugins/requirejs-plugins'
+	},
+	
 	// The name of the concatenated app file to generate. 
 	//'app' will generate app.js and app.min.js in production.
 	"script_appfile": "app",
