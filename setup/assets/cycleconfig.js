@@ -47,7 +47,7 @@ module.exports = {
 	},
 
 	// To use SCSS lint, specific the config location here
-	//"scss_lint_config": ".scss-lint.yml",
+	//"scss_lint_config": "assets/.scss-lint.yml",
 	
 	// If you want to use ruby sass (albeit slower) for compatibility reasons, then enable this option.
 	"use_rubysass": false,
