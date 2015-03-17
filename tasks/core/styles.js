@@ -43,55 +43,56 @@ function register(grunt) {
 	// Are we using icons?
 	var useIcons = grunt.config('config.icon_folder') !== undefined;
 	if (useIcons && global.firstBuild) {
-		grunt.task.loadNpmTasks('grunt-grunticon');
+		grunt.fail.fatal("Icon fallback functionality has been removed.");
+		// grunt.task.loadNpmTasks('grunt-grunticon');
 
-		// Use a clean script
-		grunt.config('clean.icons', [
-			'.tmp/icons'
-		]);
+		// // Use a clean script
+		// grunt.config('clean.icons', [
+		// 	'.tmp/icons'
+		// ]);
 
-		grunt.config('grunticon', {
-			icons: {
-				files: [{
-					expand: true,
-					cwd: '<%= config.icon_folder %>',
-					src: ['*.svg', '*.png'],
-					dest: ".tmp/icons"
-				}],
-				options: {
+		// grunt.config('grunticon', {
+		// 	icons: {
+		// 		files: [{
+		// 			expand: true,
+		// 			cwd: '<%= config.icon_folder %>',
+		// 			src: ['*.svg', '*.png'],
+		// 			dest: ".tmp/icons"
+		// 		}],
+		// 		options: {
 
-				}
-			}
-		});
+		// 		}
+		// 	}
+		// });
 
-		// Implement proper IE8 fallback
-		grunt.loadNpmTasks('grunt-text-replace');
-		grunt.config('replace', {
-			icons: {
-				src: ['.tmp/icons/*.svg.css'], 
-				dest: '.tmp/icons/',
-				replacements: [{
-					from: "-image: url",
-					to: ": rgba(255, 255, 255, 0) url"
-				}]
-			}
-		});
+		// // Implement proper IE8 fallback
+		// grunt.loadNpmTasks('grunt-text-replace');
+		// grunt.config('replace', {
+		// 	icons: {
+		// 		src: ['.tmp/icons/*.svg.css'], 
+		// 		dest: '.tmp/icons/',
+		// 		replacements: [{
+		// 			from: "-image: url",
+		// 			to: ": rgba(255, 255, 255, 0) url"
+		// 		}]
+		// 	}
+		// });
 
-		// Create scss files also
-		grunt.config('copy.icons', {
-			files: [{ 
-				expand: true, 
-				src: "**/*.css", 
-				dest: ".tmp/icons/", 
-				cwd: ".tmp/icons/", 
-				rename: function(dest, src) {
-					console.log(dest);console.log(src);
-	              return dest + src.substring(0, src.lastIndexOf('.')) + '.scss';
-	            }
-			}]
-		});
+		// // Create scss files also
+		// grunt.config('copy.icons', {
+		// 	files: [{ 
+		// 		expand: true, 
+		// 		src: "**/*.css", 
+		// 		dest: ".tmp/icons/", 
+		// 		cwd: ".tmp/icons/", 
+		// 		rename: function(dest, src) {
+		// 			console.log(dest);console.log(src);
+	 //              return dest + src.substring(0, src.lastIndexOf('.')) + '.scss';
+	 //            }
+		// 	}]
+		// });
 
-		grunt.registerTask('icons', 'Preprocess icons for site.', ['clean:icons', 'grunticon:icons', 'replace:icons', 'copy:icons']);
+		// grunt.registerTask('icons', 'Preprocess icons for site.', ['clean:icons', 'grunticon:icons', 'replace:icons', 'copy:icons']);
 	}
 
 	grunt.config('sass', {
