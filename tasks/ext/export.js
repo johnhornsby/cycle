@@ -37,14 +37,15 @@ function register(grunt) {
 	});
 
 
-
-
 	// Copy our HTML pages to the root of the export directory 
 	grunt.config('copy.exportTemplates', {
 		files: [
 			{ expand: true, cwd: '.tmp/html', src: '*.html', dest: 'export/' }
 		]
 	});
+
+	// Surfaces a local exporting variable to the jade templates to allow for minification
+	grunt.config('consolidate.options.local.exporting', true);
 
 	// Assign task
 	grunt.registerTask('task-export', 'Generates static site from prototype build', ['task-prototype-build', 'copy:exportCss', 'copy:exportJs', 'copy:exportImg', 'copy:exportTemplates']);
