@@ -29,11 +29,12 @@ Sequence build automation.
 	+ *Notifications* - If you are on a mac, or have [Growl](http://www.growlforwindows.com/gfw/) installed on windows, cycle gives popup notifications informing you of errors or successful builds.
 
 + **Tasks**
-	+ *Export Static* - Generate a static site `cycle task-export`. Surfaces a `exporting` variable to the Jade templates that allow for different options in the exported static files. For example
-	```if exporting
-				script(data-main='main', src='assets/js/app.min.js')
-			else
-				script(data-main='main', src='assets/js/app.js')
+	+ *Export Static* - Generate a static site `cycle task-export`. Surfaces a `exporting` variable to the Jade templates that allow for different options in the exported static files. For example:
+	```
+	if exporting
+		script(data-main='main', src='assets/js/app.min.js')
+	else
+	script(data-main='main', src='assets/js/app.js')
 	```
 
 	+ *Upload* - Upload a generated static site `cycle task-upload`
