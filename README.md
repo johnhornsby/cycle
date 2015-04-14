@@ -34,7 +34,7 @@ Sequence build automation.
 		if exporting
 			script(data-main='main', src='assets/js/app.min.js')
 		else
-		script(data-main='main', src='assets/js/app.js')
+			script(data-main='main', src='assets/js/app.js')
 		```
 
 	+ *Upload* - Upload a generated static site `cycle task-upload`
