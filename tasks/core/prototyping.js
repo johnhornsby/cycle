@@ -53,7 +53,7 @@ function register(grunt) {
 			dist: {
 				files: [{
 					expand: true,
-					cwd: '',
+					cwd: '<%= config.prototypes.template_root %>',
 					src: templateEngine.templateString,
 					dest: '.tmp/html/',
 					ext: '.html',
