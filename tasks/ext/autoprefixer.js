@@ -1,39 +1,39 @@
 module.exports = {
-  name: 'task-autoprefixer',
-  dependencies: ['task-styles'],
-  register: register,
-  buildTask: true
+	name: 'task-autoprefixer',
+	dependencies: ['task-styles'],
+	register: register,
+	buildTask: true
 };
 
 function register(grunt) {
 
-  // Check to see if autoprefixer is being used
-  var useAutoprefixer = grunt.config('config.autoprefixer');
-  if (useAutoprefixer === undefined || useAutoprefixer === false) {
-    grunt.registerTask('task-autoprefixer', 'Disabled.', []);
-    return false;
-  }
+	// Check to see if autoprefixer is being used
+	var useAutoprefixer = grunt.config('config.autoprefixer');
+	if (useAutoprefixer === undefined || useAutoprefixer === false) {
+		grunt.registerTask('task-autoprefixer', 'Disabled.', []);
+		return false;
+	}
 
-  // Set autoprefixer options
-  grunt.config('autoprefixer', {
+	// Set autoprefixer options
+	grunt.config('autoprefixer', {
 
-    options: grunt.config('config.autoprefixer.options'),
+		options: grunt.config('config.autoprefixer.options'),
 
-    multiple_files: {
-      src: '<%= config.css_folder %>/**/*.css'
-    }
-  });
+		multiple_files: {
+			src: '<%= config.css_folder %>/**/*.css'
+		}
+	});
 
-  // Load our required npm tasks
-  grunt.task.loadNpmTasks('grunt-autoprefixer');
-  
-  // Add ourselves to the styles watch list
-  var stylesTasks = grunt.config('watch.styles.tasks');
-  stylesTasks.push('task-autoprefixer');
-  grunt.config('watch.styles.tasks', stylesTasks);
+	// Load our required npm tasks
+	grunt.task.loadNpmTasks('grunt-autoprefixer');
+	
+	// Add ourselves to the styles watch list
+	var stylesTasks = grunt.config('watch.styles.tasks');
+	stylesTasks.push('task-autoprefixer');
+	grunt.config('watch.styles.tasks', stylesTasks);
 
-  // Register task
-  grunt.registerTask('task-autoprefixer', 'Run autoprefixer', ['autoprefixer']);
+	// Register task
+	grunt.registerTask('task-autoprefixer', 'Run autoprefixer', ['autoprefixer']);
 
-  return true;
+	return true;
 };
