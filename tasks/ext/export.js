@@ -40,7 +40,7 @@ function register(grunt) {
 	// Copy our HTML pages to the root of the export directory 
 	grunt.config('copy.exportTemplates', {
 		files: [
-			{ expand: true, cwd: '.tmp/html', src: '*.html', dest: 'export/' }
+			{ expand: true, cwd: '.tmp/html', src: '**/*.html', dest: 'export/' }
 		]
 	});
 
