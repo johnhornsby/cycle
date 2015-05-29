@@ -123,6 +123,10 @@ function register(grunt) {
 
 	// Minify our css when production is enabled
 	grunt.config('cssmin.styles', {
+		options: {
+			advanced: false,
+			aggressiveMerging: false
+		},
 		files: [
 			{	//Compile our sass into the site css folder
 				expand: true,
