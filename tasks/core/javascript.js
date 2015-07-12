@@ -10,7 +10,6 @@ module.exports = {
 };
 
 function register(grunt) {
-
 	// Validate our configuration
 	if (!verifyConfig(grunt)) {
 		grunt.registerTask('task-javascript', 'Disabled.', []);
@@ -20,7 +19,15 @@ function register(grunt) {
 	// Configure grunt according to what we need
 	var useRequire = grunt.config('config.use_requirejs') === true;
 	var useCoffee = grunt.config('config.coffee_folder') !== undefined;
+	var useES6 = grunt.config('config.es6_folder') !== undefined;
 	var jsAppfolder = grunt.config('config.javascript_appfolder');
+	var isBowerEnabled = grunt.config('config.bower_enabled') === true;
+
+	// if (useCoffee && useES6)
+	// 	return console.error("[" + "cycle".green + "]".white + " Error: Use either CoffeeScript or ES6, not both".red);
+
+	if (useES6 && isBowerEnabled && useRequire)
+		return console.error("[" + "cycle".green + "]".white + " Error: Set bower_enabled to false when using ES6 and Require".red);
 
 	if (useRequire) {
 		grunt.task.loadNpmTasks('grunt-contrib-requirejs');
@@ -38,6 +45,7 @@ function register(grunt) {
 			var includes = [];
 
 			files.forEach(function (file) {
+				
 				if (path.extname(file) != '.js')
 					return;
 
@@ -46,7 +54,9 @@ function register(grunt) {
 					return;
 
 				var module = path.dirname(file) + '/' + path.basename(file, '.js');
-				includes.push(module.replace(/\\/g, "/"));
+				module = module.replace(/\\/g, "/");
+				// console.log('include module ' + module);
+				includes.push(module);
 			});
 
 			// Sort by bower priorities
@@ -54,6 +64,7 @@ function register(grunt) {
 			if (priorities) {
 				includes.sort(function (a, b) {
 					for (var i=0; i < priorities.length; ++i) {
+						console.log("priorities index " + i + " " + priorities[i]);
 						if (priorities[i].indexOf(path.basename(a) + '.js') != -1)
 							return -1;
 						if (priorities[i].indexOf(path.basename(b) + '.js') != -1)
@@ -62,6 +73,16 @@ function register(grunt) {
 
 					return 0;
 				});
+			}
+
+			if (useES6) {
+				// require main, the main script must be called main
+				grunt.config('requirejs.compile.options.insertRequire', ['main']);
+				var requireIncludes = grunt.config('config.require_includes');
+
+				if (requireIncludes != null) {
+					includes = includes.concat(requireIncludes);
+				}
 			}
 
 			grunt.config('requirejs.compile.options.include', includes);
@@ -122,6 +143,38 @@ function register(grunt) {
 		});
 	}
 
+	if (useES6) {
+		grunt.task.loadNpmTasks('grunt-babel');
+
+		grunt.config('babel', {
+			babel: {
+				options: {
+					modules: "amd",
+					// moduleIds: true,
+					sourceMap: false
+				},
+				files: [
+					{
+						expand: true,
+						cwd: "<%= config.es6_folder %>",
+						src: "**/*.js",
+						dest: ".tmp/js/",
+						ext: ".js"
+					}
+				]
+			}
+		});
+
+		// Keep an eye on our coffeescript folder
+		grunt.config('watch.es6', {
+			files: ['<%= config.es6_folder %>/**/*.js'],
+			tasks: ['task-javascript', 'notify:watch'],
+			options: {
+				livereload: true
+			}
+		});
+	}
+
 	if (jsAppfolder) {
 		var useAMD = grunt.config('config.javascript_use_amd');
 
@@ -174,6 +227,9 @@ function register(grunt) {
 
 	if (useCoffee)
 		taskList.push('coffee:coffee');
+
+	if (useES6)
+		taskList.push('babel:babel');
 
 	if (jsAppfolder)
 		taskList.push('concat:js');
