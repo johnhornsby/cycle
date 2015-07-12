@@ -28,7 +28,8 @@ module.exports = {
 	"js_folder": "assets/js",
 	"scss_folder": "assets/scss",			// Remove me to disable sass
 	"coffee_folder": "assets/coffee",		// Remove me to disable coffeescript
-	
+	// "es6_folder": "assets/es6",				// Remove me to disable es6
+
 	"img_folder": "assets/img",
 	//"icon_folder": "assets/img/icons",	// Automatically adds icons in this folder to the stylesheet
 
@@ -61,7 +62,12 @@ module.exports = {
 
 	// Custom RequireJS path definitions
 	"require_paths": {
+		// "almond": "assets/bower_components/almond/almond"
 	},
+
+	// Will import and include these modules into the app file to ensure they are included ready for use.
+	// The string should map direcly to your require_paths property keys
+	// "require_includes": ["almond"],
 	
 	// The name of the concatenated app file to generate. 
 	//'app' will generate app.js and app.min.js in production.
