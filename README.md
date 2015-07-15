@@ -6,6 +6,8 @@ Sequence build automation.
 
 + **Automation**
 	+ *Coffeescript* - [Coffeescript](http://coffeescript.org/) is compiled and concatenated into a single app.js file, and minified as necessary.
+	+ *ES6* - ES6 JavaScript is transiplied via [babeljs](https://babeljs.io/) as an alternative
+	option to CoffeeScript.
 	+ *Sass* - [Sass](http://sass-lang.com/) files are also compiled and concatenated into individual .css files, allowing multiple 'main' stylesheets.
 	+ *Prototyping* - When working on the initial static build, cycle will serve up html files on a local webserver.
 	+ *Templating* - While prototyping, [multiple template engines](https://github.com/visionmedia/consolidate.js/#supported-template-engines) can be selected which will be automatically processed, served to the browser and also watched for changes.
@@ -57,4 +59,16 @@ Initialize bower modules `bower install`
 Build your project `cycle`
 
 Modify your **cycleconfig.js** file in the **assets** folder to configure cycle.
+
+## ES6 Pointers
+
+The current Cycle module option of AMD is still the module of choice at the moment. A number of differing settings can get your ES6 working. However for clarity I'll layout below the advised config settings to get you quickly setup and writing ES6.
+
++ Uncomment `"es6_folder": "assets/es6"` ES6 is not activated by default.
++ Comment out `"coffee_folder": "assets/coffee"` You will not be able to output CoffeeScript and ES6 at the same time.
++ Set `use_require = true` Activate the Requirejs Optimiser.
++ Set `bower_enabled = false` This turns of an automated process that copies all Bower components into the js folder for the Requirejs Optimiser to import them.
++ Install Almond or Requirejs via Bower. `bower install almond --save`
++ Add `"almond": "assets/bower_components/almond/almond"` or Require to your require paths.
++ Add "almond" or "requirejs" to the require_includes array. This ensures Almond/Requirejs is included in our app.js file and means we don't have to import Almond/Requirejs into our main ES6 file, keeping everything nice and clean.
 
