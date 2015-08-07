@@ -40,7 +40,7 @@ function register(grunt) {
 	// Synchronize all the markup we can find
 	grunt.config('sync.asp', {
 		files: [{
-			src: ['**/*.ascx', '**/*.aspx'],
+			src: ['**/*.ascx', '**/*.aspx', '**/*.cshtml', '../**/*.cshtml'],
 			dest: '<%= config.sitecore_path %>'
 		}],
 		verbose: false
@@ -48,7 +48,7 @@ function register(grunt) {
 
 	// Keep an eye on our markup
 	grunt.config('watch.asp', {
-		files: ['**/*.ascx', '**/*.aspx'],
+		files: ['**/*.ascx', '**/*.aspx', '**/*.cshtml', '../**/*.cshtml'],
 		tasks: ['task-sitecore-asp'],
 		options: {
 			livereload: true
