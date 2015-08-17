@@ -29,6 +29,7 @@ module.exports = {
 	"scss_folder": "assets/scss",			// Remove me to disable sass
 	"coffee_folder": "assets/coffee",		// Remove me to disable coffeescript
 	// "es6_folder": "assets/es6",				// Remove me to disable es6
+	// "babel_stage": 2					// Set 0 to use experimental support for ES7
 
 	"img_folder": "assets/img",
 	//"icon_folder": "assets/img/icons",	// Automatically adds icons in this folder to the stylesheet
