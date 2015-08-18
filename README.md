@@ -71,4 +71,4 @@ The current Cycle module option of AMD is still the module of choice at the mome
 + Install Almond or Requirejs via Bower. `bower install almond --save`
 + Add `"almond": "assets/bower_components/almond/almond"` or Require to your require paths.
 + Add "almond" or "requirejs" to the require_includes array. This ensures Almond/Requirejs is included in our app.js file and means we don't have to import Almond/Requirejs into our main ES6 file, keeping everything nice and clean.
-
++ Babel's stage is set to 0 so you can use experimental support for ES7 out of box, e.g. function bind. See ([Babel Options](http://babeljs.io/docs/usage/experimental/).
