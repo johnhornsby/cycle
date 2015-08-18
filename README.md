@@ -65,11 +65,10 @@ Modify your **cycleconfig.js** file in the **assets** folder to configure cycle.
 The current Cycle module option of AMD is still the module of choice at the moment. A number of differing settings can get your ES6 working. However for clarity I'll layout below the advised config settings to get you quickly setup and writing ES6.
 
 + Uncomment `"es6_folder": "assets/es6"` ES6 is not activated by default.
-+ Set `"babel_stage" : 0` if you wish to enable experimental support for ES7, e.g. function bind. Default is 2. See ([Babel Options](http://babeljs.io/docs/usage/experimental/).
 + Comment out `"coffee_folder": "assets/coffee"` You will not be able to output CoffeeScript and ES6 at the same time.
 + Set `use_require = true` Activate the Requirejs Optimiser.
 + Set `bower_enabled = false` This turns of an automated process that copies all Bower components into the js folder for the Requirejs Optimiser to import them.
 + Install Almond or Requirejs via Bower. `bower install almond --save`
 + Add `"almond": "assets/bower_components/almond/almond"` or Require to your require paths.
 + Add "almond" or "requirejs" to the require_includes array. This ensures Almond/Requirejs is included in our app.js file and means we don't have to import Almond/Requirejs into our main ES6 file, keeping everything nice and clean.
-
++ Babel's stage is set to 0 so you can use experimental support for ES7 out of box, e.g. function bind. See ([Babel Options](http://babeljs.io/docs/usage/experimental/).

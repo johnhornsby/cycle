@@ -150,7 +150,7 @@ function register(grunt) {
 			babel: {
 				options: {
 					modules: "amd",
-					stage: "<%= config.babel_stage %>",
+					stage: 0,
 					// moduleIds: true,
 					sourceMap: false
 				},
