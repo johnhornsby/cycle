@@ -31,7 +31,7 @@
     "grunt-babel": "^5.0.1",
     "grunt-bower": "^0.18.0",
     "grunt-concurrent": "^1.0.0",
-    "grunt-consolidate": "^0.1.0",
+    "grunt-consolidate": "^1.0.2",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-coffee": "^0.13.0",
     "grunt-contrib-concat": "^0.5.1",
